@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "7B790BA5-7247-4606-9EF5-0C0633048CB0",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Sudoku.xcodeproj",
+      "identifier" : "9D834C702D9EB5400081F4E2",
+      "name" : "Sudoku"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : false,
+      "target" : {
+        "containerPath" : "container:Sudoku.xcodeproj",
+        "identifier" : "9D1467152DA82F08008EB6FD",
+        "name" : "SudokuTests"
+      }
+    }
+  ],
+  "version" : 1
+}

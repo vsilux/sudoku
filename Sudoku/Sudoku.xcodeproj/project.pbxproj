@@ -1,0 +1,573 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9D2CC4A92D9FDBD500711DE4 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 9D2CC4A82D9FDBD500711DE4 /* FirebaseAnalytics */; };
+		9D2CC4AB2D9FDBD500711DE4 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 9D2CC4AA2D9FDBD500711DE4 /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		9D2CC4AD2D9FDBD500711DE4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9D2CC4AC2D9FDBD500711DE4 /* FirebaseAuth */; };
+		9D2CC4AF2D9FDBD500711DE4 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 9D2CC4AE2D9FDBD500711DE4 /* FirebaseCore */; };
+		9D2CC4B12D9FDBD500711DE4 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 9D2CC4B02D9FDBD500711DE4 /* FirebaseDatabase */; };
+		9D2CC4B32D9FDBD500711DE4 /* FirebaseDynamicLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 9D2CC4B22D9FDBD500711DE4 /* FirebaseDynamicLinks */; };
+		9D2CC4B52D9FDBD500711DE4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 9D2CC4B42D9FDBD500711DE4 /* FirebaseFirestore */; };
+		9D2CC4B72D9FDBD500711DE4 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 9D2CC4B62D9FDBD500711DE4 /* FirebaseStorage */; };
+		9D2CC4BA2D9FFEF500711DE4 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 9D2CC4B92D9FFEF500711DE4 /* GoogleSignIn */; };
+		9D2CC4BC2D9FFEF500711DE4 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9D2CC4BB2D9FFEF500711DE4 /* GoogleSignInSwift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9D14671A2DA82F09008EB6FD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9D834C692D9EB5400081F4E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9D834C702D9EB5400081F4E2;
+			remoteInfo = Sudoku;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9D1467162DA82F08008EB6FD /* SudokuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudokuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D1467272DA8318C008EB6FD /* Sudoku.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Sudoku.xctestplan; sourceTree = "<group>"; };
+		9D834C712D9EB5400081F4E2 /* Sudoku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sudoku.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		9D834C832D9EB5430081F4E2 /* Exceptions for "Sudoku" folder in "Sudoku" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 9D834C702D9EB5400081F4E2 /* Sudoku */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		9D1467172DA82F08008EB6FD /* SudokuTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SudokuTests;
+			sourceTree = "<group>";
+		};
+		9D834C732D9EB5400081F4E2 /* Sudoku */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9D834C832D9EB5430081F4E2 /* Exceptions for "Sudoku" folder in "Sudoku" target */,
+			);
+			path = Sudoku;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9D1467132DA82F08008EB6FD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9D834C6E2D9EB5400081F4E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9D2CC4B12D9FDBD500711DE4 /* FirebaseDatabase in Frameworks */,
+				9D2CC4A92D9FDBD500711DE4 /* FirebaseAnalytics in Frameworks */,
+				9D2CC4AD2D9FDBD500711DE4 /* FirebaseAuth in Frameworks */,
+				9D2CC4AF2D9FDBD500711DE4 /* FirebaseCore in Frameworks */,
+				9D2CC4AB2D9FDBD500711DE4 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				9D2CC4BC2D9FFEF500711DE4 /* GoogleSignInSwift in Frameworks */,
+				9D2CC4B72D9FDBD500711DE4 /* FirebaseStorage in Frameworks */,
+				9D2CC4B32D9FDBD500711DE4 /* FirebaseDynamicLinks in Frameworks */,
+				9D2CC4B52D9FDBD500711DE4 /* FirebaseFirestore in Frameworks */,
+				9D2CC4BA2D9FFEF500711DE4 /* GoogleSignIn in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9D834C682D9EB5400081F4E2 = {
+			isa = PBXGroup;
+			children = (
+				9D1467272DA8318C008EB6FD /* Sudoku.xctestplan */,
+				9D834C732D9EB5400081F4E2 /* Sudoku */,
+				9D1467172DA82F08008EB6FD /* SudokuTests */,
+				9D834C722D9EB5400081F4E2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9D834C722D9EB5400081F4E2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9D834C712D9EB5400081F4E2 /* Sudoku.app */,
+				9D1467162DA82F08008EB6FD /* SudokuTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9D1467152DA82F08008EB6FD /* SudokuTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9D14671E2DA82F09008EB6FD /* Build configuration list for PBXNativeTarget "SudokuTests" */;
+			buildPhases = (
+				9D1467122DA82F08008EB6FD /* Sources */,
+				9D1467132DA82F08008EB6FD /* Frameworks */,
+				9D1467142DA82F08008EB6FD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9D14671B2DA82F09008EB6FD /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				9D1467172DA82F08008EB6FD /* SudokuTests */,
+			);
+			name = SudokuTests;
+			packageProductDependencies = (
+			);
+			productName = SudokuTests;
+			productReference = 9D1467162DA82F08008EB6FD /* SudokuTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9D834C702D9EB5400081F4E2 /* Sudoku */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9D834C842D9EB5430081F4E2 /* Build configuration list for PBXNativeTarget "Sudoku" */;
+			buildPhases = (
+				9D834C6D2D9EB5400081F4E2 /* Sources */,
+				9D834C6E2D9EB5400081F4E2 /* Frameworks */,
+				9D834C6F2D9EB5400081F4E2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				9D834C732D9EB5400081F4E2 /* Sudoku */,
+			);
+			name = Sudoku;
+			packageProductDependencies = (
+				9D2CC4A82D9FDBD500711DE4 /* FirebaseAnalytics */,
+				9D2CC4AA2D9FDBD500711DE4 /* FirebaseAnalyticsWithoutAdIdSupport */,
+				9D2CC4AC2D9FDBD500711DE4 /* FirebaseAuth */,
+				9D2CC4AE2D9FDBD500711DE4 /* FirebaseCore */,
+				9D2CC4B02D9FDBD500711DE4 /* FirebaseDatabase */,
+				9D2CC4B22D9FDBD500711DE4 /* FirebaseDynamicLinks */,
+				9D2CC4B42D9FDBD500711DE4 /* FirebaseFirestore */,
+				9D2CC4B62D9FDBD500711DE4 /* FirebaseStorage */,
+				9D2CC4B92D9FFEF500711DE4 /* GoogleSignIn */,
+				9D2CC4BB2D9FFEF500711DE4 /* GoogleSignInSwift */,
+			);
+			productName = Sudoku;
+			productReference = 9D834C712D9EB5400081F4E2 /* Sudoku.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9D834C692D9EB5400081F4E2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1630;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					9D1467152DA82F08008EB6FD = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = 9D834C702D9EB5400081F4E2;
+					};
+					9D834C702D9EB5400081F4E2 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+				};
+			};
+			buildConfigurationList = 9D834C6C2D9EB5400081F4E2 /* Build configuration list for PBXProject "Sudoku" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9D834C682D9EB5400081F4E2;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				9D2CC4A72D9FDBD500711DE4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				9D2CC4B82D9FFEF500711DE4 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 9D834C722D9EB5400081F4E2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9D834C702D9EB5400081F4E2 /* Sudoku */,
+				9D1467152DA82F08008EB6FD /* SudokuTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9D1467142DA82F08008EB6FD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9D834C6F2D9EB5400081F4E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9D1467122DA82F08008EB6FD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9D834C6D2D9EB5400081F4E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9D14671B2DA82F09008EB6FD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9D834C702D9EB5400081F4E2 /* Sudoku */;
+			targetProxy = 9D14671A2DA82F09008EB6FD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		9D14671C2DA82F09008EB6FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.illia.suvorov.SudokuTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sudoku.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sudoku";
+			};
+			name = Debug;
+		};
+		9D14671D2DA82F09008EB6FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.illia.suvorov.SudokuTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sudoku.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sudoku";
+			};
+			name = Release;
+		};
+		9D834C852D9EB5430081F4E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Sudoku/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.illia.suvorov.Sudoku;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9D834C862D9EB5430081F4E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Sudoku/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.illia.suvorov.Sudoku;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		9D834C872D9EB5430081F4E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9D834C882D9EB5430081F4E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9D14671E2DA82F09008EB6FD /* Build configuration list for PBXNativeTarget "SudokuTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9D14671C2DA82F09008EB6FD /* Debug */,
+				9D14671D2DA82F09008EB6FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9D834C6C2D9EB5400081F4E2 /* Build configuration list for PBXProject "Sudoku" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9D834C872D9EB5430081F4E2 /* Debug */,
+				9D834C882D9EB5430081F4E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9D834C842D9EB5430081F4E2 /* Build configuration list for PBXNativeTarget "Sudoku" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9D834C852D9EB5430081F4E2 /* Debug */,
+				9D834C862D9EB5430081F4E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9D2CC4A72D9FDBD500711DE4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.11.0;
+			};
+		};
+		9D2CC4B82D9FFEF500711DE4 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9D2CC4A82D9FDBD500711DE4 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9D2CC4A72D9FDBD500711DE4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		9D2CC4AA2D9FDBD500711DE4 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9D2CC4A72D9FDBD500711DE4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		9D2CC4AC2D9FDBD500711DE4 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9D2CC4A72D9FDBD500711DE4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		9D2CC4AE2D9FDBD500711DE4 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9D2CC4A72D9FDBD500711DE4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		9D2CC4B02D9FDBD500711DE4 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9D2CC4A72D9FDBD500711DE4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		9D2CC4B22D9FDBD500711DE4 /* FirebaseDynamicLinks */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9D2CC4A72D9FDBD500711DE4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDynamicLinks;
+		};
+		9D2CC4B42D9FDBD500711DE4 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9D2CC4A72D9FDBD500711DE4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		9D2CC4B62D9FDBD500711DE4 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9D2CC4A72D9FDBD500711DE4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		9D2CC4B92D9FFEF500711DE4 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9D2CC4B82D9FFEF500711DE4 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		9D2CC4BB2D9FFEF500711DE4 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9D2CC4B82D9FFEF500711DE4 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 9D834C692D9EB5400081F4E2 /* Project object */;
+}
