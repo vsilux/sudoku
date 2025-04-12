@@ -18,12 +18,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="never" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KEW-la-BXv">
-                                <rect key="frame" x="16" y="245.66666666666663" width="361" height="361"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <rect key="frame" x="9.6666666666666572" y="239" width="374" height="374"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="374" id="cxE-eD-jMA"/>
                                     <constraint firstAttribute="width" secondItem="KEW-la-BXv" secondAttribute="height" multiplier="1:1" id="u4y-mF-Ifv"/>
                                 </constraints>
-                                <collectionViewLayout key="collectionViewLayout" id="YV6-4p-lxn" customClass="SudokuLayout" customModule="Sudoku" customModuleProvider="target"/>
+                                <collectionViewLayout key="collectionViewLayout" id="YV6-4p-lxn"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SudokuCell" id="fGD-vo-mE4" customClass="SudokuCell" customModule="Sudoku" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="2.6666666666666665" width="40" height="45"/>
@@ -99,11 +100,14 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="KEW-la-BXv" secondAttribute="trailing" constant="16" id="ElC-NI-n88"/>
-                            <constraint firstItem="KEW-la-BXv" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="KAP-tC-z5f"/>
+                            <constraint firstItem="KEW-la-BXv" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="7q5-SH-7KO"/>
                             <constraint firstItem="KEW-la-BXv" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="ogw-bZ-p9Y"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="boardWidthConstraint" destination="cxE-eD-jMA" id="YAT-xK-dhE"/>
+                        <outlet property="collectionView" destination="KEW-la-BXv" id="Nb5-V7-Ioy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

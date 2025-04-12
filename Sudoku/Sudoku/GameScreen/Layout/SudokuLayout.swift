@@ -8,44 +8,42 @@
 import UIKit
 
 class SudokuLayout: UICollectionViewLayout {
-    let smallOffset: CGFloat = 1.0
-    let largeOffset: CGFloat = 2.0
-    
+    private(set) var sizeProvider: SudokuBoardSizeProvider!
     private var cachedAttributes = [UICollectionViewLayoutAttributes]()
-    var contentBounds = CGRect.zero
+    private var contentBounds = CGRect.zero
+    
+    convenience init(sizeProvider: SudokuBoardSizeProvider) {
+        self.init()
+        self.sizeProvider = sizeProvider
+    }
     
     override func prepare() {
         super.prepare()
         
         guard let collectionView = collectionView else { return }
-        
-        print(UIScreen.main.bounds.width)
-        print(collectionView.bounds)
+        guard let sizeProvider = sizeProvider else { return }
         
         cachedAttributes.removeAll()
         contentBounds = CGRect(origin: .zero, size: collectionView.bounds.size)
         
-        let availableWidth = UIScreen.main.bounds.width - 32.0
-        let cellSize = floor((availableWidth - 8.0 * smallOffset - 4.0 * largeOffset) / CGFloat(SudokuConstants.fildSize))
-        
-        var yOffset: CGFloat = 0.0
+        var yOffset = 0.0
         for row in 0..<SudokuConstants.fildSize {
             
-            var xOffset: CGFloat = 0
-            yOffset += offsetInGrid(component: row)
+            var xOffset = 0.0
+            yOffset += offsetForGrid(component: row)
             
-            let yPosition = yOffset + cellSize * CGFloat(row)
+            let yPosition = yOffset + sizeProvider.cellSize * CGFloat(row)
             
             for column in 0..<SudokuConstants.fildSize {
                 
-                xOffset += offsetInGrid(component: column)
+                xOffset += offsetForGrid(component: column)
                 
                 let indexPath = IndexPath(item: column, section: row)
                 let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
                 
-                let xPosition = xOffset + cellSize * CGFloat(column)
+                let xPosition = xOffset + sizeProvider.cellSize * CGFloat(column)
                 
-                attributes.frame = CGRect(x: xPosition, y: yPosition, width: cellSize, height: cellSize)
+                attributes.frame = CGRect(x: xPosition, y: yPosition, width: sizeProvider.cellSize, height: sizeProvider.cellSize)
                 cachedAttributes.append(attributes)
                 contentBounds = contentBounds.union(attributes.frame)
             }
@@ -110,7 +108,7 @@ class SudokuLayout: UICollectionViewLayout {
     }
     
     // Returns offset for Row or Column due to symetry. I.e. largeOffset or smallOffset
-    private func offsetInGrid(component: Int) -> CGFloat {
-        (component % 3 == 0) ? largeOffset : smallOffset
+    private func offsetForGrid(component: Int) -> CGFloat {
+        (component % 3 == 0) ? sizeProvider.largeOffset : sizeProvider.smallOffset
     }
 }
