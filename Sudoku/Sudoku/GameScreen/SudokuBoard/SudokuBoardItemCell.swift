@@ -7,8 +7,8 @@
 
 import UIKit
 
-class SudokuCell: UICollectionViewCell {
-    static let identifier = "SudokuCell"
+class SudokuBoardItemCell: UICollectionViewCell {
+    static let identifier = String(describing: SudokuBoardItemCell.self)
     
     @IBOutlet private(set) var numberLable: UILabel!
     
