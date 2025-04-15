@@ -6,30 +6,112 @@
 //
 
 import XCTest
+@testable import Sudoku
 
 final class SudokuBoardViewControllerTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func test_NumberOfSections() {
+        // Arrange
+        let layout = UICollectionViewFlowLayout()
+        let mockBackgroundViewBuilder = MockSudokuBackgroundViewBuilder()
+        let viewController = SudokuBoardViewController(
+            collectionViewLayout: layout,
+            backgroundViewBuilder: mockBackgroundViewBuilder,
+            boardContentDataSource: MockSudokuBoardContentDataSource()
+        )
+            
+        // Act
+        _ = viewController.view // Trigger view loading
+        let sections = viewController.numberOfSections(
+            in: viewController.collectionView
+        )
+            
+        // Assert
+        XCTAssertEqual(
+            sections,
+            SudokuConstants.fildSize,
+            "The number of sections should match the Sudoku field size."
+        )
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        
+    func test_NumberOfItemsInSection() {
+        // Arrange
+        let layout = UICollectionViewFlowLayout()
+        let mockBackgroundViewBuilder = MockSudokuBackgroundViewBuilder()
+        let viewController = SudokuBoardViewController(
+            collectionViewLayout: layout,
+            backgroundViewBuilder: mockBackgroundViewBuilder,
+            boardContentDataSource: MockSudokuBoardContentDataSource()
+        )
+            
+        // Act
+        _ = viewController.view // Trigger view loading
+        let items = viewController.collectionView(
+            viewController.collectionView,
+            numberOfItemsInSection: 0
+        )
+            
+        // Assert
+        XCTAssertEqual(
+            items,
+            SudokuConstants.fildSize,
+            "The number of items in a section should match the Sudoku field size."
+        )
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+        
+    func test_CellForItemAt() {
+        // Arrange
+        let layout = UICollectionViewFlowLayout()
+        let mockBackgroundViewBuilder = MockSudokuBackgroundViewBuilder()
+        let viewController = SudokuBoardViewController(
+            collectionViewLayout: layout,
+            backgroundViewBuilder: mockBackgroundViewBuilder,
+            boardContentDataSource: MockSudokuBoardContentDataSource()
+        )
+            
+        // Act
+        _ = viewController.view // Trigger view loading
+        let indexPath = IndexPath(item: 0, section: 0)
+        let cell = viewController.collectionView(
+            viewController.collectionView,
+            cellForItemAt: indexPath
+        ) as? SudokuBoardItemCell
+            
+        // Assert
+        XCTAssertNotNil(cell, "The cell should not be nil.")
+        XCTAssertEqual(
+            cell?.contentView.backgroundColor,
+            .white,
+            "The cell's background color should be white."
+        )
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    // MARK: - Mock Classes
+    
+    class MockSudokuBackgroundViewBuilder: SudokuBakgroundViewBuilder {
+        func build() -> UIView {
+            return UIView()
         }
+    }
+    
+    class MockSudokuBoardContentDataSource: SudokuBoardConentDataSource {
+        func itemFor(row: Int, column: Int) -> SudokuBoardItem {
+            return MockSudokuBoardItem(
+                row: row,
+                column: column,
+                isEditable: true,
+                value: nil,
+                isCorrect: false
+            )
+        }
+    }
+    
+    struct MockSudokuBoardItem: SudokuBoardItem {
+        var row: Int
+        var column: Int
+        var isEditable: Bool
+        var value: Int?
+        var isCorrect: Bool
     }
 
 }

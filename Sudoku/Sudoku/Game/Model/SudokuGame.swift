@@ -8,15 +8,22 @@
 import Foundation
 import Combine
 
-struct SudokuBoard: Codable, Hashable, Identifiable {
-    var id: UUID
-    var items: [[SudokuBoardItem]]
-    var time: TimeInterval
-    var mistakesCount: Int
-    var suggestionsCount: Int
-    var isSolved: Bool
+final class SudokuGame: Codable, Hashable, Identifiable {
+    let id: UUID
+    let items: [[SudokuGameItem]]
+    private(set) var time: TimeInterval
+    private(set) var mistakesCount: Int
+    private(set) var suggestionsCount: Int
+    private(set) var isSolved: Bool
     
-    init(id: UUID, items: [[SudokuBoardItem]], time: TimeInterval, mistakesCount: Int, suggestionsCount: Int, isSolved: Bool) {
+    init(
+        id: UUID = UUID(),
+        items: [[SudokuGameItem]],
+        time: TimeInterval = 0.0,
+        mistakesCount: Int = 0,
+        suggestionsCount: Int = 1,
+        isSolved: Bool = false
+    ) {
         self.id = id
         self.items = items
         self.time = time
@@ -25,23 +32,28 @@ struct SudokuBoard: Codable, Hashable, Identifiable {
         self.isSolved = isSolved
     }
     
-    init(items: [[SudokuBoardItem]]) {
-        self.init(id: UUID(), items: items, time: 0, mistakesCount: 0, suggestionsCount: 1, isSolved: false)
-    }
-    
-    mutating func updateTime(_ time: TimeInterval) {
+    func updateTime(_ time: TimeInterval) {
         self.time = time
     }
     
-    mutating func updateMistakesCount(_ count: Int) {
+    func updateMistakesCount(_ count: Int) {
         self.mistakesCount = count
     }
     
-    mutating func updateSuggestionsCount(_ count: Int) {
+    func updateSuggestionsCount(_ count: Int) {
         self.suggestionsCount = count
     }
     
-    mutating func sloved() {
+    func sloved() {
         self.isSolved = true
     }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func == (lhs: SudokuGame, rhs: SudokuGame) -> Bool {
+        lhs.id == rhs.id
+    }
 }
+

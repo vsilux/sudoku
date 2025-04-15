@@ -8,21 +8,21 @@
 import Foundation
 
 class SudokuGameGenerator {
-    func generateBoard(size: Int = 9) -> SudokuBoard {
-        var items: [[SudokuBoardItem]] = []
+    func generateBoard(size: Int = 9) -> SudokuGame {
+        var items: [[SudokuGameItem]] = []
         
         for row in 0..<size {
-            var rowItems: [SudokuBoardItem] = []
+            var rowItems: [SudokuGameItem] = []
             for column in 0..<size {
-                let index = SudokuBoardItem.Index(row: row, column: column)
+                let index = SudokuGameItem.Index(row: row, column: column)
                 let correctValue = (row * 3 + row / 3 + column) % size + 1 // Example logic for generating values
                 let isEditable = Bool.random() // Randomly decide if the cell is editable
-                let item = SudokuBoardItem(id: index, correctValue: correctValue, value: isEditable ? nil : correctValue, isEditable: isEditable)
+                let item = SudokuGameItem(id: index, correctValue: correctValue, value: isEditable ? nil : correctValue, isEditable: isEditable)
                 rowItems.append(item)
             }
             items.append(rowItems)
         }
         
-        return SudokuBoard(items: items)
+        return SudokuGame(items: items)
     }
 }

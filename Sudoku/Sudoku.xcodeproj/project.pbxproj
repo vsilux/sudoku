@@ -17,6 +17,7 @@
 		9D2CC4B72D9FDBD500711DE4 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 9D2CC4B62D9FDBD500711DE4 /* FirebaseStorage */; };
 		9D2CC4BA2D9FFEF500711DE4 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 9D2CC4B92D9FFEF500711DE4 /* GoogleSignIn */; };
 		9D2CC4BC2D9FFEF500711DE4 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9D2CC4BB2D9FFEF500711DE4 /* GoogleSignInSwift */; };
+		9D94ECD22DAD4E6A002B4B4C /* libobjc.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D94ECD12DAD4E69002B4B4C /* libobjc.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +34,7 @@
 		9D1467162DA82F08008EB6FD /* SudokuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudokuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D1467272DA8318C008EB6FD /* Sudoku.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Sudoku.xctestplan; sourceTree = "<group>"; };
 		9D834C712D9EB5400081F4E2 /* Sudoku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sudoku.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D94ECD12DAD4E69002B4B4C /* libobjc.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libobjc.tbd; path = usr/lib/libobjc.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -73,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D94ECD22DAD4E6A002B4B4C /* libobjc.tbd in Frameworks */,
 				9D2CC4B12D9FDBD500711DE4 /* FirebaseDatabase in Frameworks */,
 				9D2CC4A92D9FDBD500711DE4 /* FirebaseAnalytics in Frameworks */,
 				9D2CC4AD2D9FDBD500711DE4 /* FirebaseAuth in Frameworks */,
@@ -95,6 +98,7 @@
 				9D1467272DA8318C008EB6FD /* Sudoku.xctestplan */,
 				9D834C732D9EB5400081F4E2 /* Sudoku */,
 				9D1467172DA82F08008EB6FD /* SudokuTests */,
+				9D94ECD02DAD4E69002B4B4C /* Frameworks */,
 				9D834C722D9EB5400081F4E2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -106,6 +110,14 @@
 				9D1467162DA82F08008EB6FD /* SudokuTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		9D94ECD02DAD4E69002B4B4C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9D94ECD12DAD4E69002B4B4C /* libobjc.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -293,14 +305,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sudoku/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
@@ -322,14 +334,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sudoku/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;

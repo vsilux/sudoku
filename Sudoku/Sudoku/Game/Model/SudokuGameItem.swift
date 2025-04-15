@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct SudokuBoardItem: Codable, Hashable, Identifiable {
+struct SudokuGameItem: Codable, Hashable, Identifiable {
     var id: Index
     var correctValue: Int
     var value: Int?
     var isEditable: Bool
 }
 
-extension SudokuBoardItem {
+extension SudokuGameItem {
     struct Index: Codable, Hashable, Equatable {
         var row: Int
         var column: Int

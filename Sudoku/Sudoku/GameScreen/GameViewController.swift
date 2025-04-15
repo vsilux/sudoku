@@ -7,54 +7,39 @@
 
 import UIKit
 
-class GameViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class GameViewController: UIViewController {
     
-    @IBOutlet private(set) var collectionView: UICollectionView!
-    @IBOutlet private(set) var boardWidthConstraint: NSLayoutConstraint!
+    private let boardViewController: UIViewController
+    private let boardSizeWidth: CGFloat
+
+    init(boardViewController: UIViewController, boardSizeWidth: CGFloat) {
+        self.boardViewController = boardViewController
+        self.boardSizeWidth = boardSizeWidth
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let sizeProvider = SudokuBoardScreenBasedSizeProvider(screenWidth: UIScreen.main.bounds.width)
-        boardWidthConstraint.constant = sizeProvider.realContentWidth
-        collectionView.collectionViewLayout = SudokuLayout(sizeProvider: sizeProvider)
-        collectionView.backgroundView = collectionViewBackgroundView(for: sizeProvider)
+        view.backgroundColor = .white
+        embedBoardController()
     }
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return SudokuConstants.fildSize
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return SudokuConstants.fildSize
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SudokuCell.identifier, for: indexPath) as? SudokuCell
-            else { preconditionFailure("Failed to load collection view cell") }
+    private func embedBoardController() {
         
-        cell.setNumber(indexPath.item)
-        cell.contentView.backgroundColor = .white
-        return cell
-    }
-    
-    private func collectionViewBackgroundView(for sizeProvider: SudokuBoardSizeProvider) -> UIView {
-        let backgrounView = UIView()
-        backgrounView.backgroundColor = .black
-        let lightBoxSize = sizeProvider.cellSize * Double(SudokuConstants.fildBlocSize) + sizeProvider.smallOffset * 2
-        for row in 0..<SudokuConstants.fildBlocSize {
-            for column in 0..<SudokuConstants.fildBlocSize {
-                let lightBox = UIView()
-                lightBox.backgroundColor = .lightGray
-                lightBox.frame = CGRect(
-                    x: sizeProvider.largeOffset + (lightBoxSize + sizeProvider.largeOffset) * Double(column),
-                    y: sizeProvider.largeOffset + (lightBoxSize + sizeProvider.largeOffset) * Double(row),
-                    width: lightBoxSize,
-                    height: lightBoxSize
-                )
-                backgrounView.addSubview(lightBox)
-            }
-        }
+        addChild(boardViewController)
+        boardViewController.view.translatesAutoresizingMaskIntoConstraints = false
         
-        return backgrounView
+        view.addSubview(boardViewController.view)
+        
+        boardViewController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        boardViewController.view.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        boardViewController.view.widthAnchor.constraint(equalToConstant: boardSizeWidth).isActive = true
+        boardViewController.view.heightAnchor.constraint(equalTo: boardViewController.view.widthAnchor, multiplier: 1.0).isActive = true
+        
+        boardViewController.didMove(toParent: self)
     }
 }
