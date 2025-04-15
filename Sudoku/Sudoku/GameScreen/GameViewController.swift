@@ -11,10 +11,16 @@ class GameViewController: UIViewController {
     
     private let boardViewController: UIViewController
     private let boardSizeWidth: CGFloat
+    private let numpadViewController: UIViewController
 
-    init(boardViewController: UIViewController, boardSizeWidth: CGFloat) {
+    init(
+        boardViewController: UIViewController,
+        boardSizeWidth: CGFloat,
+        numpadViewController: UIViewController
+    ) {
         self.boardViewController = boardViewController
         self.boardSizeWidth = boardSizeWidth
+        self.numpadViewController = numpadViewController
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -26,10 +32,10 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         embedBoardController()
+        embedNumpadController()
     }
     
     private func embedBoardController() {
-        
         addChild(boardViewController)
         boardViewController.view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -42,4 +48,16 @@ class GameViewController: UIViewController {
         
         boardViewController.didMove(toParent: self)
     }
+    
+    private func embedNumpadController() {
+        addChild(numpadViewController)
+        numpadViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(numpadViewController.view)
+        
+        numpadViewController.view.topAnchor.constraint(equalTo: boardViewController.view.bottomAnchor, constant: 20).isActive = true
+        numpadViewController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        numpadViewController.view.widthAnchor.constraint(equalToConstant: boardSizeWidth).isActive = true
+        numpadViewController.view.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    }
+
 }

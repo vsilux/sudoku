@@ -16,10 +16,19 @@ enum App {
         )
     }
     
-    private static func makeGameViewController(_ sizeProvider: SudokuBoardSizeProvider, boardContentDataSource: SudokuBoardConentDataSource) -> UIViewController {
+    private static func makeNumpadViewController(_ interectionHandler: NumpadInterectionHandler) -> UIViewController {
+        return NumpadViewController(interectionHandler: interectionHandler)
+    }
+    
+    private static func makeGameViewController(
+        boardViewController: UIViewController,
+        boardWidth: Double,
+        numpadViewController: UIViewController,
+    ) -> UIViewController {
         return GameViewController(
-            boardViewController: makeBoardViewController(sizeProvider, boardContentDataSource: boardContentDataSource),
-            boardSizeWidth: sizeProvider.realContentWidth
+            boardViewController: boardViewController,
+            boardSizeWidth: boardWidth,
+            numpadViewController: numpadViewController
         )
     }
     
@@ -27,7 +36,14 @@ enum App {
     static func run(in window: UIWindow) {
         let gameController = GameController(game: SudokuGameGenerator().generateBoard())
         let sizeProvider = SudokuBoardScreenBasedSizeProvider(screenWidth: window.bounds.width)
-        let gameViewController = makeGameViewController(sizeProvider, boardContentDataSource: gameController)
+        let gameViewController = makeGameViewController(
+            boardViewController: makeBoardViewController(
+                sizeProvider,
+                boardContentDataSource: gameController
+            ),
+            boardWidth: sizeProvider.realContentWidth,
+            numpadViewController: makeNumpadViewController(gameController)
+        )
         let navigationViewController = UINavigationController(rootViewController: gameViewController)
         window.rootViewController = navigationViewController
         window.makeKeyAndVisible()

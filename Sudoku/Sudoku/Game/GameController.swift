@@ -7,7 +7,7 @@
 
 import Foundation
 
-class GameController: SudokuBoardConentDataSource {
+class GameController: SudokuBoardConentDataSource, NumpadInterectionHandler {
     private let game: SudokuGame
     
     init(game: SudokuGame) {
@@ -16,6 +16,10 @@ class GameController: SudokuBoardConentDataSource {
     
     func itemFor(row: Int, column: Int) -> SudokuBoardItem {
         self.game.items[row][column]
+    }
+    
+    func didTap(number: Int) {
+        
     }
 }
 
