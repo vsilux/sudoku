@@ -6,28 +6,30 @@
 //
 
 import UIKit
-
-protocol SudokuBoardItem {
-    var row: Int { get }
-    var column: Int { get }
-    var isEditable: Bool { get }
-    var value: Int? { get }
-    var isCorrect: Bool { get }
-}
-
+import Combine
 
 protocol SudokuBoardConentDataSource {
-    func itemFor(row: Int, column: Int) -> SudokuBoardItem
+    func itemPublisherFor(row: Int, column: Int) -> AnyPublisher<any SudokuBoardItem, Never>
+}
+
+protocol SudokuBoardInteractionHandler {
+    func selectedItemAt(row: Int, column: Int)
 }
 
 class SudokuBoardViewController: UICollectionViewController {
-    
     private let backgroundViewBuilder: SudokuBakgroundViewBuilder
     private let boardContentDataSource: SudokuBoardConentDataSource
+    private let interactionHandler: SudokuBoardInteractionHandler
     
-    init(collectionViewLayout layout: UICollectionViewLayout, backgroundViewBuilder: SudokuBakgroundViewBuilder, boardContentDataSource: SudokuBoardConentDataSource) {
+    init(
+        collectionViewLayout layout: UICollectionViewLayout,
+        backgroundViewBuilder: SudokuBakgroundViewBuilder,
+        boardContentDataSource: SudokuBoardConentDataSource,
+        interactionHandler: SudokuBoardInteractionHandler
+    ) {
         self.backgroundViewBuilder = backgroundViewBuilder
         self.boardContentDataSource = boardContentDataSource
+        self.interactionHandler = interactionHandler
         super.init(collectionViewLayout: layout)
     }
     
@@ -53,14 +55,13 @@ class SudokuBoardViewController: UICollectionViewController {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SudokuBoardItemCell.identifier, for: indexPath) as? SudokuBoardItemCell
             else { preconditionFailure("Failed to load collection view cell") }
         
-        cell.configureCell(
-            with: boardContentDataSource.itemFor(
-                row: indexPath.section,
-                column: indexPath.item
-            )
-        )
+        cell.bind(to: boardContentDataSource.itemPublisherFor(row: indexPath.section, column: indexPath.item))
         
         cell.contentView.backgroundColor = .white
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        interactionHandler.selectedItemAt(row: indexPath.section, column: indexPath.item)
     }
 }

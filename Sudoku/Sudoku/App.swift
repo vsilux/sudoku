@@ -8,11 +8,16 @@
 import UIKit
 
 enum App {
-    private static func makeBoardViewController(_ sizeProvider: SudokuBoardSizeProvider, boardContentDataSource: SudokuBoardConentDataSource) -> UIViewController {
+    private static func makeBoardViewController(
+        _ sizeProvider: SudokuBoardSizeProvider,
+        boardContentDataSource: SudokuBoardConentDataSource,
+        interactionHandler: any SudokuBoardInteractionHandler
+    ) -> UIViewController {
         return SudokuBoardViewController(
             collectionViewLayout: SudokuLayout(sizeProvider: sizeProvider),
             backgroundViewBuilder: SudokuCollectionViewBackgrounViewBuilder(sizeProvider: sizeProvider),
-            boardContentDataSource: boardContentDataSource
+            boardContentDataSource: boardContentDataSource,
+            interactionHandler: interactionHandler
         )
     }
     
@@ -34,15 +39,17 @@ enum App {
     
     // Mark: run initial screen
     static func run(in window: UIWindow) {
-        let gameController = GameController(game: SudokuGameGenerator().generateBoard())
+        let game = SudokuGameGenerator().generateBoard()
         let sizeProvider = SudokuBoardScreenBasedSizeProvider(screenWidth: window.bounds.width)
+        let gameInteractionService = GameInteractionService(game: game)
         let gameViewController = makeGameViewController(
             boardViewController: makeBoardViewController(
                 sizeProvider,
-                boardContentDataSource: gameController
+                boardContentDataSource: gameInteractionService,
+                interactionHandler: gameInteractionService
             ),
             boardWidth: sizeProvider.realContentWidth,
-            numpadViewController: makeNumpadViewController(gameController)
+            numpadViewController: makeNumpadViewController(gameInteractionService)
         )
         let navigationViewController = UINavigationController(rootViewController: gameViewController)
         window.rootViewController = navigationViewController

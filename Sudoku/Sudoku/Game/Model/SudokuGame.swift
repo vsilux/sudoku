@@ -10,7 +10,7 @@ import Combine
 
 final class SudokuGame: Codable, Hashable, Identifiable {
     let id: UUID
-    let items: [[SudokuGameItem]]
+    private(set) var items: [[SudokuGameItem]]
     private(set) var time: TimeInterval
     private(set) var mistakesCount: Int
     private(set) var suggestionsCount: Int
