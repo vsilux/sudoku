@@ -39,7 +39,7 @@ enum App {
     
     // Mark: run initial screen
     static func run(in window: UIWindow) {
-        let game = SudokuGameGenerator().generateBoard()
+        let game = SudokuGameGenerator().generateBoard(difficulty: .easy)
         let sizeProvider = SudokuBoardScreenBasedSizeProvider(screenWidth: window.bounds.width)
         let gameInteractionService = GameInteractionService(game: game)
         let gameViewController = makeGameViewController(

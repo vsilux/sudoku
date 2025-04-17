@@ -10,6 +10,7 @@ import Foundation
 enum SudokuConstants {
     static let fildSize = 9 // 9x9
     static let fildBlocSize = 3
+    static let maxMistakes = 3
     static let smallOffset: CGFloat = 1.0
     static let smallOffsetsCount = 8.0
     static let largeOffset: CGFloat = 2.0

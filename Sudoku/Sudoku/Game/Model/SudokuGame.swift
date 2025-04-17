@@ -10,6 +10,7 @@ import Combine
 
 final class SudokuGame: Codable, Hashable, Identifiable {
     let id: UUID
+    let difficulty: Difficulty
     private(set) var items: [[SudokuGameItem]]
     private(set) var time: TimeInterval
     private(set) var mistakesCount: Int
@@ -18,6 +19,7 @@ final class SudokuGame: Codable, Hashable, Identifiable {
     
     init(
         id: UUID = UUID(),
+        difficulty: Difficulty = .easy,
         items: [[SudokuGameItem]],
         time: TimeInterval = 0.0,
         mistakesCount: Int = 0,
@@ -25,6 +27,7 @@ final class SudokuGame: Codable, Hashable, Identifiable {
         isSolved: Bool = false
     ) {
         self.id = id
+        self.difficulty = difficulty
         self.items = items
         self.time = time
         self.mistakesCount = mistakesCount
@@ -54,6 +57,16 @@ final class SudokuGame: Codable, Hashable, Identifiable {
     
     static func == (lhs: SudokuGame, rhs: SudokuGame) -> Bool {
         lhs.id == rhs.id
+    }
+}
+
+extension SudokuGame {
+    enum Difficulty: Int, Codable {
+        case easy = 30
+        case medium = 40
+        case hard = 50
+        case expert = 60
+        case master = 70
     }
 }
 

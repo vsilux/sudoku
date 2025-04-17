@@ -159,6 +159,12 @@
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="393" height="40"/>
+                    <connections>
+                        <outlet property="difficultyLabel" destination="eNQ-zC-Wuj" id="DF7-m8-XWS"/>
+                        <outlet property="maxScoreLabel" destination="xF0-8m-n7B" id="blE-8W-h7m"/>
+                        <outlet property="mistakesLabel" destination="Rux-OK-6fp" id="Avw-aV-GaZ"/>
+                        <outlet property="timeLabel" destination="49h-BO-DW0" id="oUJ-Tx-pZg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
