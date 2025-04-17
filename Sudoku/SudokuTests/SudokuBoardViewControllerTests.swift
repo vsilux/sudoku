@@ -6,24 +6,19 @@
 //
 
 import XCTest
+import Combine
 @testable import Sudoku
 
 final class SudokuBoardViewControllerTests: XCTestCase {
 
     func test_NumberOfSections() {
         // Arrange
-        let layout = UICollectionViewFlowLayout()
-        let mockBackgroundViewBuilder = MockSudokuBackgroundViewBuilder()
-        let viewController = SudokuBoardViewController(
-            collectionViewLayout: layout,
-            backgroundViewBuilder: mockBackgroundViewBuilder,
-            boardContentDataSource: MockSudokuBoardContentDataSource()
-        )
+        let sut = makeSUT()
             
         // Act
-        _ = viewController.view // Trigger view loading
-        let sections = viewController.numberOfSections(
-            in: viewController.collectionView
+        _ = sut.view // Trigger view loading
+        let sections = sut.numberOfSections(
+            in: sut.collectionView
         )
             
         // Assert
@@ -36,18 +31,12 @@ final class SudokuBoardViewControllerTests: XCTestCase {
         
     func test_NumberOfItemsInSection() {
         // Arrange
-        let layout = UICollectionViewFlowLayout()
-        let mockBackgroundViewBuilder = MockSudokuBackgroundViewBuilder()
-        let viewController = SudokuBoardViewController(
-            collectionViewLayout: layout,
-            backgroundViewBuilder: mockBackgroundViewBuilder,
-            boardContentDataSource: MockSudokuBoardContentDataSource()
-        )
+        let sut = makeSUT()
             
         // Act
-        _ = viewController.view // Trigger view loading
-        let items = viewController.collectionView(
-            viewController.collectionView,
+        _ = sut.view // Trigger view loading
+        let items = sut.collectionView(
+            sut.collectionView,
             numberOfItemsInSection: 0
         )
             
@@ -61,19 +50,13 @@ final class SudokuBoardViewControllerTests: XCTestCase {
         
     func test_CellForItemAt() {
         // Arrange
-        let layout = UICollectionViewFlowLayout()
-        let mockBackgroundViewBuilder = MockSudokuBackgroundViewBuilder()
-        let viewController = SudokuBoardViewController(
-            collectionViewLayout: layout,
-            backgroundViewBuilder: mockBackgroundViewBuilder,
-            boardContentDataSource: MockSudokuBoardContentDataSource()
-        )
+        let sut = makeSUT()
             
         // Act
-        _ = viewController.view // Trigger view loading
+        _ = sut.view // Trigger view loading
         let indexPath = IndexPath(item: 0, section: 0)
-        let cell = viewController.collectionView(
-            viewController.collectionView,
+        let cell = sut.collectionView(
+            sut.collectionView,
             cellForItemAt: indexPath
         ) as? SudokuBoardItemCell
             
@@ -86,6 +69,22 @@ final class SudokuBoardViewControllerTests: XCTestCase {
         )
     }
     
+    // MARK: - Helpers
+    
+    func makeSUT() -> SudokuBoardViewController {
+        let layout = UICollectionViewFlowLayout()
+        let mockBackgroundViewBuilder = MockSudokuBackgroundViewBuilder()
+        let mockInteractionHandler = MockSudokuBoardInteractionHandler()
+        let viewController = SudokuBoardViewController(
+            collectionViewLayout: layout,
+            backgroundViewBuilder: mockBackgroundViewBuilder,
+            boardContentDataSource: MockSudokuBoardContentDataSource(),
+            interactionHandler: mockInteractionHandler
+        )
+        
+        return viewController
+    }
+    
     // MARK: - Mock Classes
     
     class MockSudokuBackgroundViewBuilder: SudokuBakgroundViewBuilder {
@@ -95,23 +94,32 @@ final class SudokuBoardViewControllerTests: XCTestCase {
     }
     
     class MockSudokuBoardContentDataSource: SudokuBoardConentDataSource {
-        func itemFor(row: Int, column: Int) -> SudokuBoardItem {
-            return MockSudokuBoardItem(
+        func itemPublisherFor(row: Int, column: Int) -> AnyPublisher<any SudokuBoardItem, Never> {
+            return Just(MockSudokuBoardItem(
+                state: .normal,
                 row: row,
                 column: column,
                 isEditable: true,
                 value: nil,
                 isCorrect: false
-            )
+            )).eraseToAnyPublisher()
         }
     }
     
     struct MockSudokuBoardItem: SudokuBoardItem {
+        var state: Sudoku.SudokuItemState
         var row: Int
         var column: Int
         var isEditable: Bool
         var value: Int?
         var isCorrect: Bool
+    }
+    
+    class MockSudokuBoardInteractionHandler: SudokuBoardInteractionHandler {
+        var selectedItemIndex: [SudokuGameItem.Index] = []
+        func selectedItemAt(row: Int, column: Int) {
+            selectedItemIndex.append(SudokuGameItem.Index(row: row, column: column))
+        }
     }
 
 }
