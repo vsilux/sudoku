@@ -13,9 +13,9 @@ enum GameBoardStateHelper {
         guard let selectedItemIndex = selectedItemIndex else { return }
         
         // Hilight selected row
-        for item in 0..<SudokuConstants.fildSize {
-            if item != selectedItemIndex.column {
-                items[selectedItemIndex.row][item].state = .subtleHighlight
+        for column in 0..<SudokuConstants.fildSize {
+            if column != selectedItemIndex.column {
+                items[selectedItemIndex.row][column].state = .subtleHighlight
             }
         }
         

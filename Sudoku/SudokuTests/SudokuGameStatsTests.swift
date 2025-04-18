@@ -20,9 +20,7 @@ final class SudokuGameStatsTests: XCTestCase {
     }
     
     func test_gameStatsViewController_usesGameStatsDataProvider() {
-        let dataProvider = MockGameStatsDataProvider()
         let sut = makeSUT()
-        sut.dataProvider = dataProvider
         
         _ = sut.view
         XCTAssertEqual(sut.maxScoreLabel?.text, "12 305")
@@ -32,20 +30,18 @@ final class SudokuGameStatsTests: XCTestCase {
     }
     
     func test_gameStatsViewController_isUpdatingTimeLabel() {
-        let dataProvider = MockGameStatsDataProvider()
-        let sut = makeSUT()
-        sut.dataProvider = dataProvider
+        let timeCounter = MockGameTimeCounter()
+        let sut = makeSUT(timeCounter: timeCounter)
         
         _ = sut.view
         XCTAssertEqual(sut.timeLabel?.text, "02:02")
-        dataProvider.incrementTime()
+        timeCounter.incrementTime()
         XCTAssertEqual(sut.timeLabel?.text, "02:03")
     }
     
     func test_gameStatsViewController_isUpdatingMistakesLabel() {
         let dataProvider = MockGameStatsDataProvider()
-        let sut = makeSUT()
-        sut.dataProvider = dataProvider
+        let sut = makeSUT(dataProvider: dataProvider)
         
         _ = sut.view
         XCTAssertEqual(sut.mistakesLabel?.text, "0/3")
@@ -55,14 +51,16 @@ final class SudokuGameStatsTests: XCTestCase {
     
     // MARK: - Helpers
     
-    func makeSUT() -> GameStatsViewController {
-        return storyboard.instantiateInitialViewController() as! GameStatsViewController
+    func makeSUT(
+        dataProvider: GameStatsDataProvider = MockGameStatsDataProvider(),
+        timeCounter: MockGameTimeCounter = MockGameTimeCounter()
+    ) -> GameStatsViewController {
+        return GameStatsViewController.make(with: dataProvider, timeCounter: timeCounter)
     }
     
     // MARK: - Mocks
     
     class MockGameStatsDataProvider: GameStatsDataProvider {
-        @Published private var seconds: Int = 122
         @Published private var mistakesCount: Int = 0
         
         func maxScore() -> Int {
@@ -77,16 +75,24 @@ final class SudokuGameStatsTests: XCTestCase {
             $mistakesCount.eraseToAnyPublisher()
         }
         
+        func incrementMistakes() {
+            mistakesCount += 1
+        }
+    }
+    
+    class MockGameTimeCounter: GameTimeCounter {
+        @Published private var seconds: Int = 122
+        
         func time() -> AnyPublisher<Int, Never> {
             $seconds.eraseToAnyPublisher()
         }
         
+        private(set) var isPoused = false
+        func resumeGame() { isPoused = false }
+        func pauseGame() { isPoused = true }
+        
         func incrementTime() {
             seconds += 1
-        }
-        
-        func incrementMistakes() {
-            mistakesCount += 1
         }
     }
 }

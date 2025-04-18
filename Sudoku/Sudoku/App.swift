@@ -41,15 +41,15 @@ enum App {
     static func run(in window: UIWindow) {
         let game = SudokuGameGenerator().generateBoard(difficulty: .easy)
         let sizeProvider = SudokuBoardScreenBasedSizeProvider(screenWidth: window.bounds.width)
-        let gameInteractionService = GameInteractionService(game: game)
+        let gameService = GameService(game: game)
         let gameViewController = makeGameViewController(
             boardViewController: makeBoardViewController(
                 sizeProvider,
-                boardContentDataSource: gameInteractionService,
-                interactionHandler: gameInteractionService
+                boardContentDataSource: gameService,
+                interactionHandler: gameService
             ),
             boardWidth: sizeProvider.realContentWidth,
-            numpadViewController: makeNumpadViewController(gameInteractionService)
+            numpadViewController: makeNumpadViewController(gameService)
         )
         let navigationViewController = UINavigationController(rootViewController: gameViewController)
         window.rootViewController = navigationViewController
