@@ -1,28 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17150" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17122"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Game Actions View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" sceneMemberID="viewController">
+                <viewController id="Y6W-OH-hqX" customClass="GameActionsViewController" customModule="Sudoku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="60"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PfP-ED-VR6">
+                                <rect key="frame" x="20" y="0.0" width="60" height="60"/>
+                                <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="arrow.uturn.backward" catalog="system"/>
+                                <connections>
+                                    <action selector="undoButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="CET-CX-tVt"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HCF-1j-wXL">
+                                <rect key="frame" x="166.66666666666666" y="0.0" width="60" height="60"/>
+                                <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="eraser" catalog="system"/>
+                                <connections>
+                                    <action selector="eraseButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="n8b-K7-gOm"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zdt-eI-Jxd">
+                                <rect key="frame" x="313" y="0.0" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Zdt-eI-Jxd" secondAttribute="height" id="Buk-YI-h7l"/>
+                                </constraints>
+                                <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="lightbulb" catalog="system"/>
+                                <connections>
+                                    <action selector="hintButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="uuf-fN-5h8"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Zdt-eI-Jxd" firstAttribute="width" secondItem="HCF-1j-wXL" secondAttribute="width" id="4tN-CJ-QY6"/>
+                            <constraint firstAttribute="bottom" secondItem="PfP-ED-VR6" secondAttribute="bottom" id="7gr-Fn-v86"/>
+                            <constraint firstAttribute="bottom" secondItem="Zdt-eI-Jxd" secondAttribute="bottom" id="80U-df-i0N"/>
+                            <constraint firstAttribute="bottom" secondItem="HCF-1j-wXL" secondAttribute="bottom" id="BbX-uD-9wO"/>
+                            <constraint firstItem="PfP-ED-VR6" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" constant="20" id="Jd6-Hg-xEN"/>
+                            <constraint firstItem="HCF-1j-wXL" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="Z3m-Fw-vU3"/>
+                            <constraint firstItem="Zdt-eI-Jxd" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="a16-dF-sem"/>
+                            <constraint firstItem="PfP-ED-VR6" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="bgx-ah-WF9"/>
+                            <constraint firstItem="HCF-1j-wXL" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="eRg-Om-t60"/>
+                            <constraint firstItem="Zdt-eI-Jxd" firstAttribute="width" secondItem="PfP-ED-VR6" secondAttribute="width" id="mto-2x-lCv"/>
+                            <constraint firstAttribute="trailing" secondItem="Zdt-eI-Jxd" secondAttribute="trailing" constant="20" id="nE4-sU-dDk"/>
+                            <constraint firstItem="HCF-1j-wXL" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="qgE-HY-sKL"/>
+                        </constraints>
                     </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="393" height="60"/>
+                    <connections>
+                        <outlet property="eraseButton" destination="HCF-1j-wXL" id="DhK-YV-Z73"/>
+                        <outlet property="hintButton" destination="Zdt-eI-Jxd" id="XM0-PK-hzN"/>
+                        <outlet property="undoButton" destination="PfP-ED-VR6" id="H8H-gh-HeL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="136.64122137404578" y="3.5211267605633805"/>
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.uturn.backward" catalog="system" width="128" height="113"/>
+        <image name="eraser" catalog="system" width="128" height="119"/>
+        <image name="lightbulb" catalog="system" width="92" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

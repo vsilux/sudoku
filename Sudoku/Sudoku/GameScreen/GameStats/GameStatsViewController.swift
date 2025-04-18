@@ -85,6 +85,6 @@ class GameStatsViewController: UIViewController {
     }
     
     @IBAction private func onPouseButtonTap(_ sender: UIButton) {
-        
+        timeCounter?.pauseGame()
     }
 }

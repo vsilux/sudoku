@@ -25,12 +25,18 @@ enum App {
         return NumpadViewController(interectionHandler: interectionHandler)
     }
     
+    private static func makeGameStatsViewController(_ dataProvider: GameStatsDataProvider, timeCounter: GameTimeCounter) -> UIViewController {
+        return GameStatsViewController.make(with: dataProvider, timeCounter: timeCounter)
+    }
+    
     private static func makeGameViewController(
+        gameStatsViewController: UIViewController,
         boardViewController: UIViewController,
         boardWidth: Double,
         numpadViewController: UIViewController,
     ) -> UIViewController {
         return GameViewController(
+            gameStatsViewController: gameStatsViewController,
             boardViewController: boardViewController,
             boardSizeWidth: boardWidth,
             numpadViewController: numpadViewController
@@ -43,6 +49,7 @@ enum App {
         let sizeProvider = SudokuBoardScreenBasedSizeProvider(screenWidth: window.bounds.width)
         let gameService = GameService(game: game)
         let gameViewController = makeGameViewController(
+            gameStatsViewController: makeGameStatsViewController(gameService, timeCounter: gameService),
             boardViewController: makeBoardViewController(
                 sizeProvider,
                 boardContentDataSource: gameService,

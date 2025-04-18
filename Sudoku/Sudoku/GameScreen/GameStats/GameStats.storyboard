@@ -105,22 +105,25 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22:52" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="49h-BO-DW0">
-                                        <rect key="frame" x="0.0" y="22" width="50" height="18"/>
+                                        <rect key="frame" x="0.0" y="22" width="56" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p06-Iv-W9C">
-                                        <rect key="frame" x="58" y="0.0" width="40" height="40"/>
+                                        <rect key="frame" x="64" y="6" width="34" height="34"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="7Jy-If-BSs"/>
-                                            <constraint firstAttribute="width" constant="40" id="Hrh-cL-55t"/>
+                                            <constraint firstAttribute="height" constant="34" id="7Jy-If-BSs"/>
+                                            <constraint firstAttribute="width" constant="34" id="Hrh-cL-55t"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="gray" cornerStyle="capsule">
                                             <imageReference key="image" image="pause" catalog="system" symbolScale="medium"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="onPouseButtonTap:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="iDT-Qv-lTJ"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>

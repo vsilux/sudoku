@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 
-class GameService: SudokuBoardConentDataSource, NumpadInterectionHandler, SudokuBoardInteractionHandler, GameStatsDataProvider {
+class GameService: SudokuBoardConentDataSource, SudokuBoardInteractionHandler {
     private let game: SudokuGame
     private var selectedItemIndex: SudokuGameItem.Index?
     private var timer: Timer?
@@ -44,15 +44,10 @@ class GameService: SudokuBoardConentDataSource, NumpadInterectionHandler, Sudoku
             .hilightSame(in: &items, selectedItemIndex: selectedItemIndex)
         gameItems = items
     }
-    
-    func didTap(number: Int) {
-        guard let selectedItemIndex = selectedItemIndex else { return }
-        
-        if gameItems[selectedItemIndex.row][selectedItemIndex.column].isEditable {
-            gameItems[selectedItemIndex.row][selectedItemIndex.column].value = number
-        }
-    }
-    
+}
+
+// MARK: GameStatsDataProvider
+extension GameService: GameStatsDataProvider {
     func maxScore() -> Int {
         return 0
     }
@@ -62,8 +57,50 @@ class GameService: SudokuBoardConentDataSource, NumpadInterectionHandler, Sudoku
     func mistakes() -> AnyPublisher<Int, Never> {
         $mistakesCount.eraseToAnyPublisher()
     }
-    
+}
+
+// MARK: GameTimeCounter
+extension GameService: GameTimeCounter {
     func time() -> AnyPublisher<Int, Never> {
         $inGameTime.eraseToAnyPublisher()
+    }
+    
+    func resumeGame() {
+        if !(timer?.isValid ?? false)  {
+            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+                self?.inGameTime += 1
+            }
+            timer?.fire()
+        }
+    }
+    
+    func pauseGame() {
+        timer?.invalidate()
+    }
+}
+
+// MARK: NumpadInterectionHandler
+extension GameService: NumpadInterectionHandler {
+    func didTap(number: Int) {
+        guard let selectedItemIndex = selectedItemIndex else { return }
+        
+        if gameItems[selectedItemIndex.row][selectedItemIndex.column].isEditable {
+            gameItems[selectedItemIndex.row][selectedItemIndex.column].value = number
+        }
+    }
+}
+
+// MARK: GameActionsHandler
+extension GameService: GameActionsHandler {
+    func undo() {
+        
+    }
+    
+    func erase() {
+        
+    }
+    
+    func hint() {
+        
     }
 }

@@ -9,15 +9,23 @@ import UIKit
 
 class GameViewController: UIViewController {
     
+    private let gameStatsHeight: CGFloat = 40
+    private let numpadHeight: CGFloat = 50
+    private let topContentOffset: CGFloat = 30
+    private let interContainerOffset: CGFloat = 20
+    
+    private let gameStatsViewController: UIViewController
     private let boardViewController: UIViewController
     private let boardSizeWidth: CGFloat
     private let numpadViewController: UIViewController
 
     init(
+        gameStatsViewController: UIViewController,
         boardViewController: UIViewController,
         boardSizeWidth: CGFloat,
         numpadViewController: UIViewController
     ) {
+        self.gameStatsViewController = gameStatsViewController
         self.boardViewController = boardViewController
         self.boardSizeWidth = boardSizeWidth
         self.numpadViewController = numpadViewController
@@ -31,8 +39,22 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        embedGameStatsController()
         embedBoardController()
         embedNumpadController()
+    }
+    
+    private func embedGameStatsController() {
+        addChild(gameStatsViewController)
+        gameStatsViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(gameStatsViewController.view)
+        
+        gameStatsViewController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topContentOffset).isActive = true
+        gameStatsViewController.view.widthAnchor.constraint(equalToConstant: boardSizeWidth).isActive = true
+        gameStatsViewController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        gameStatsViewController.view.heightAnchor.constraint(equalToConstant: gameStatsHeight).isActive = true
+        
     }
     
     private func embedBoardController() {
@@ -42,7 +64,7 @@ class GameViewController: UIViewController {
         view.addSubview(boardViewController.view)
         
         boardViewController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        boardViewController.view.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        boardViewController.view.topAnchor.constraint(equalTo: gameStatsViewController.view.bottomAnchor, constant: interContainerOffset).isActive = true
         boardViewController.view.widthAnchor.constraint(equalToConstant: boardSizeWidth).isActive = true
         boardViewController.view.heightAnchor.constraint(equalTo: boardViewController.view.widthAnchor, multiplier: 1.0).isActive = true
         
@@ -54,10 +76,10 @@ class GameViewController: UIViewController {
         numpadViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(numpadViewController.view)
         
-        numpadViewController.view.topAnchor.constraint(equalTo: boardViewController.view.bottomAnchor, constant: 20).isActive = true
+        numpadViewController.view.topAnchor.constraint(equalTo: boardViewController.view.bottomAnchor, constant: interContainerOffset).isActive = true
         numpadViewController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         numpadViewController.view.widthAnchor.constraint(equalToConstant: boardSizeWidth).isActive = true
-        numpadViewController.view.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        numpadViewController.view.heightAnchor.constraint(equalToConstant: numpadHeight).isActive = true
     }
 
 }
