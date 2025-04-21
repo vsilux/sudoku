@@ -29,16 +29,22 @@ enum App {
         return GameStatsViewController.make(with: dataProvider, timeCounter: timeCounter)
     }
     
+    private static func makeGameActionsViewController(_ gameActionsHandler: GameActionsHandler) -> UIViewController {
+        return GameActionsViewController.make(with: gameActionsHandler)
+    }
+    
     private static func makeGameViewController(
         gameStatsViewController: UIViewController,
         boardViewController: UIViewController,
         boardWidth: Double,
+        gameActionsViewController: UIViewController,
         numpadViewController: UIViewController,
     ) -> UIViewController {
         return GameViewController(
             gameStatsViewController: gameStatsViewController,
             boardViewController: boardViewController,
             boardSizeWidth: boardWidth,
+            gameActionsViewController: gameActionsViewController,
             numpadViewController: numpadViewController
         )
     }
@@ -56,6 +62,7 @@ enum App {
                 interactionHandler: gameService
             ),
             boardWidth: sizeProvider.realContentWidth,
+            gameActionsViewController: makeGameActionsViewController(gameService),
             numpadViewController: makeNumpadViewController(gameService)
         )
         let navigationViewController = UINavigationController(rootViewController: gameViewController)

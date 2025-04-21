@@ -13,6 +13,7 @@ class GameService: SudokuBoardConentDataSource, SudokuBoardInteractionHandler {
     private let game: SudokuGame
     private var selectedItemIndex: SudokuGameItem.Index?
     private var timer: Timer?
+    private var gameHistory: [GameHistoryItem] = []
     @Published private var gameItems: [[GameItem]] = []
     @Published private var mistakesCount: Int = 0
     @Published private var inGameTime: Int = 0
@@ -43,6 +44,11 @@ class GameService: SudokuBoardConentDataSource, SudokuBoardInteractionHandler {
         GameBoardStateHelper
             .hilightSame(in: &items, selectedItemIndex: selectedItemIndex)
         gameItems = items
+    }
+    
+    private func undo(with historyItem: GameHistoryItem) {
+        gameItems[historyItem.gameItem.row][historyItem.gameItem.column].value = historyItem.previousValue
+        selectedItemAt(row: historyItem.gameItem.row, column: historyItem.gameItem.column)
     }
 }
 
@@ -83,9 +89,19 @@ extension GameService: GameTimeCounter {
 extension GameService: NumpadInterectionHandler {
     func didTap(number: Int) {
         guard let selectedItemIndex = selectedItemIndex else { return }
-        
-        if gameItems[selectedItemIndex.row][selectedItemIndex.column].isEditable {
-            gameItems[selectedItemIndex.row][selectedItemIndex.column].value = number
+        var item = gameItems[selectedItemIndex.row][selectedItemIndex.column]
+        if item.isEditable {
+            let previousValue = item.value
+            item.value = number
+            gameItems[selectedItemIndex.row][selectedItemIndex.column] = item
+            
+            if (item.value != nil && item.value != item.correctValue) {
+                mistakesCount += 1
+            }
+            
+            gameHistory.append(
+                GameHistoryItem(gameItem: item, previousValue: previousValue)
+            )
         }
     }
 }
@@ -93,7 +109,10 @@ extension GameService: NumpadInterectionHandler {
 // MARK: GameActionsHandler
 extension GameService: GameActionsHandler {
     func undo() {
-        
+        if (!gameHistory.isEmpty) {
+            let lastAction = gameHistory.removeLast()
+            undo(with: lastAction)
+        }
     }
     
     func erase() {
