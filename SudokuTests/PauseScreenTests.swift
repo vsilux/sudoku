@@ -26,6 +26,7 @@ final class PauseScreenTests: XCTestCase {
         XCTAssertNotNil(sut.difficultyLabel, "Difficulty label should not be nil after loading")
         XCTAssertNotNil(sut.mistakesCountLabel, "Mistakes count label should not be nil after loading")
         XCTAssertNotNil(sut.timeLabel, "Time label should not be nil after loading")
+        XCTAssertNotNil(sut.scoreLabel, "Score label should not be nil after loading")
     }
     
     // MARK: Helpers

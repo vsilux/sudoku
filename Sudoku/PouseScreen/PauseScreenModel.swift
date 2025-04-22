@@ -11,4 +11,6 @@ struct PauseScreenModel {
     let difficulty: String
     let mistakesCount: Int
     let time: Int
+    let score: Int
+    let resumeAction: () -> Void
 }

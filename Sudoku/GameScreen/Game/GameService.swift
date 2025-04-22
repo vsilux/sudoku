@@ -8,24 +8,20 @@
 import Foundation
 import Combine
 
-protocol GameNavigationRouter {
-    func showPauseScreen(dificulty: String, mistakesCount: Int, time: Int)
-}
-
 class GameService: SudokuBoardConentDataSource, SudokuBoardInteractionHandler {
     private let game: SudokuGame
-    private let router: GameNavigationRouter
     private var selectedItemIndex: SudokuGameItem.Index?
-    private var timer: Timer?
     private var gameHistory: [GameHistoryItem] = []
     @Published private var finishedNumbers = Array(repeating: false, count: SudokuConstants.fildSize)
     @Published private var gameItems: [[GameItem]] = []
-    @Published private var mistakesCount: Int = 0
-    @Published private var inGameTime: Int = 0
+    @Published private var mistakesCount = 0
+    @Published private var score = 0
     
-    init(game: SudokuGame, router: GameNavigationRouter) {
+    let timeCounter: GameTimeCounter
+    
+    init(game: SudokuGame, timeCounter: GameTimeCounter) {
         self.game = game
-        self.router = router
+        self.timeCounter = timeCounter
         self.gameItems = game.items
             .map { row in row.map { GameItem(sudokuItem: $0) } }
     }
@@ -102,40 +98,18 @@ class GameService: SudokuBoardConentDataSource, SudokuBoardInteractionHandler {
 
 // MARK: GameStatsDataProvider
 extension GameService: GameStatsDataProvider {
-    func maxScore() -> Int {
-        return 0
+    func gameStats() -> any GameStats {
+        return GameStatsModel(
+            difficulty: game.difficulty.name,
+            mistakesCount: mistakesCount,
+            time: timeCounter.currentTime(),
+            score: score,
+            maxScore: 0
+        )
     }
-    
-    func difficulty() -> String { game.difficulty.name }
     
     func mistakes() -> AnyPublisher<Int, Never> {
         $mistakesCount.eraseToAnyPublisher()
-    }
-}
-
-// MARK: GameTimeCounter
-extension GameService: GameTimeCounter {
-    func time() -> AnyPublisher<Int, Never> {
-        $inGameTime.eraseToAnyPublisher()
-    }
-    
-    func resumeGame() {
-        if !(timer?.isValid ?? false)  {
-            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
-                self?.inGameTime += 1
-            }
-            timer?.fire()
-        }
-    }
-    
-    func pauseGame() {
-        guard timer?.isValid ?? false else { return }
-        timer?.invalidate()
-        router.showPauseScreen(
-            dificulty: game.difficulty.name,
-            mistakesCount: mistakesCount,
-            time: inGameTime
-        )
     }
 }
 

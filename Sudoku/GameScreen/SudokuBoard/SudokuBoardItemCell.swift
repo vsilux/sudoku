@@ -26,7 +26,7 @@ protocol SudokuBoardItem: Equatable {
 
 class SudokuBoardItemCell: UICollectionViewCell {
     
-    var cancellables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     
     private let fontSize = 30.0
     

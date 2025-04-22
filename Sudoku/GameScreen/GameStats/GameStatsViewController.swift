@@ -8,16 +8,24 @@
 import UIKit
 import Combine
 
-protocol GameStatsDataProvider {
-    func maxScore() -> Int
-    func difficulty() -> String
-    func mistakes() -> AnyPublisher<Int, Never>
+protocol GameTimeCounter {
+    func startGame()
+    func stopGame()
+    func time() -> AnyPublisher<Int, Never>
+    func currentTime() -> Int
 }
 
-protocol GameTimeCounter {
-    func resumeGame()
-    func pauseGame()
-    func time() -> AnyPublisher<Int, Never>
+protocol GameStatsDataProvider {
+    var timeCounter: GameTimeCounter { get }
+    func mistakes() -> AnyPublisher<Int, Never>
+    func gameStats() -> GameStats
+}
+
+protocol GameStatsNavigationRouter {
+    func showPauseScreen(
+        gameStats: GameStats,
+        resumeAction: @escaping () -> Void
+    )
 }
 
 class GameStatsViewController: UIViewController {
@@ -29,13 +37,13 @@ class GameStatsViewController: UIViewController {
     
     private var cancellables = Set<AnyCancellable>()
     var dataProvider: GameStatsDataProvider?
-    var timeCounter: GameTimeCounter?
+    var router: GameStatsNavigationRouter?
     
-    static func make(with dataProvider: GameStatsDataProvider, timeCounter: GameTimeCounter) -> GameStatsViewController {
+    static func make(with dataProvider: GameStatsDataProvider, router: GameStatsNavigationRouter) -> GameStatsViewController {
         let storyboard = UIStoryboard(name: "GameStats", bundle: nil)
         let viewController = storyboard.instantiateInitialViewController() as! GameStatsViewController
         viewController.dataProvider = dataProvider
-        viewController.timeCounter = timeCounter
+        viewController.router = router
         return viewController
     }
     
@@ -46,31 +54,35 @@ class GameStatsViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        timeCounter?.resumeGame()
+        dataProvider?.timeCounter.startGame()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        timeCounter?.pauseGame()
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        dataProvider?.timeCounter.stopGame()
     }
     
     private func configureContent() {
         guard let dataProvider = dataProvider else { return }
-        self.maxScoreLabel.text = Utilities.formattedScore(dataProvider.maxScore())
-        self.difficultyLabel.text = dataProvider.difficulty()
+        let gameStats = dataProvider.gameStats()
+        self.maxScoreLabel.text = Utilities.formattedScore(gameStats.maxScore)
+        self.difficultyLabel.text = gameStats.difficulty
         
         dataProvider.mistakes().sink { [weak self] numberOfMistakes in
             self?.mistakesLabel.text = "\(numberOfMistakes)/\(SudokuConstants.maxMistakes)"
         }.store(in: &cancellables)
         
-        guard let timeCounter = timeCounter else { return }
-        
-        timeCounter.time().sink { [weak self] time in
+        dataProvider.timeCounter.time().sink { [weak self] time in
             self?.timeLabel.text = Utilities.formatToMinutesAndSeconds(time)
         }.store(in: &cancellables)
     }
     
-    @IBAction private func onPouseButtonTap(_ sender: UIButton) {
-        timeCounter?.pauseGame()
+    @IBAction private func onPouseButtonTapped(_ sender: UIButton) {
+        guard let dataProvider = dataProvider else { return }
+        dataProvider.timeCounter.stopGame()
+        router?
+            .showPauseScreen(gameStats: dataProvider.gameStats()) { [weak self] in
+                self?.dataProvider?.timeCounter.startGame()
+            }
     }
 }

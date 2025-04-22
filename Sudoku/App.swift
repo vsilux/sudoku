@@ -8,64 +8,41 @@
 import UIKit
 
 enum App {
-    private static func makeBoardViewController(
-        _ sizeProvider: SudokuBoardSizeProvider,
-        boardContentDataSource: SudokuBoardConentDataSource,
-        interactionHandler: any SudokuBoardInteractionHandler
-    ) -> UIViewController {
-        return SudokuBoardViewController(
-            collectionViewLayout: SudokuLayout(sizeProvider: sizeProvider),
-            backgroundViewBuilder: SudokuCollectionViewBackgrounViewBuilder(sizeProvider: sizeProvider),
-            boardContentDataSource: boardContentDataSource,
-            interactionHandler: interactionHandler
-        )
-    }
-    
-    private static func makeNumpadViewController(_ interectionHandler: NumpadInterectionHandler) -> UIViewController {
-        return NumpadViewController(interectionHandler: interectionHandler)
-    }
-    
-    private static func makeGameStatsViewController(_ dataProvider: GameStatsDataProvider, timeCounter: GameTimeCounter) -> UIViewController {
-        return GameStatsViewController.make(with: dataProvider, timeCounter: timeCounter)
-    }
-    
-    private static func makeGameActionsViewController(_ gameActionsHandler: GameActionsHandler) -> UIViewController {
-        return GameActionsViewController.make(with: gameActionsHandler)
-    }
-    
-    private static func makeGameViewController(
-        gameStatsViewController: UIViewController,
-        boardViewController: UIViewController,
-        boardWidth: Double,
-        gameActionsViewController: UIViewController,
-        numpadViewController: UIViewController,
-    ) -> UIViewController {
-        return GameViewController(
-            gameStatsViewController: gameStatsViewController,
-            boardViewController: boardViewController,
-            boardSizeWidth: boardWidth,
-            gameActionsViewController: gameActionsViewController,
-            numpadViewController: numpadViewController
-        )
-    }
-    
     // Mark: run initial screen
-    static func run(in window: UIWindow) {
+    static func run(in window: UIWindow, sceneEventStream: SceneEventStream) {
+        let router = NavigationRouter()
         let game = SudokuGameGenerator().generateBoard(difficulty: .easy)
-        let sizeProvider = SudokuBoardScreenBasedSizeProvider(screenWidth: window.bounds.width)
-        let gameService = GameService(game: game)
-        let gameViewController = makeGameViewController(
-            gameStatsViewController: makeGameStatsViewController(gameService, timeCounter: gameService),
-            boardViewController: makeBoardViewController(
-                sizeProvider,
+        let sizeProvider = SudokuBoardScreenBasedSizeProvider(
+            screenWidth: window.bounds.width
+        )
+        let gameTimeService = GameTimeService(
+            sceneEventStream: sceneEventStream
+        )
+        let gameService = GameService(game: game, timeCounter: gameTimeService)
+        
+        let gameViewController = GameViewController(
+            gameStatsViewController: GameStatsViewController
+                .make(with: gameService, router: router),
+            boardViewController: SudokuBoardViewController(
+                collectionViewLayout: SudokuLayout(sizeProvider: sizeProvider),
+                backgroundViewBuilder: SudokuCollectionViewBackgrounViewBuilder(
+                    sizeProvider: sizeProvider
+                ),
                 boardContentDataSource: gameService,
                 interactionHandler: gameService
             ),
-            boardWidth: sizeProvider.realContentWidth,
-            gameActionsViewController: makeGameActionsViewController(gameService),
-            numpadViewController: makeNumpadViewController(gameService)
+            boardSizeWidth: sizeProvider.realContentWidth,
+            gameActionsViewController: GameActionsViewController
+                .make(with: gameService),
+            numpadViewController: NumpadViewController(
+                interectionHandler: gameService
+            )
         )
-        let navigationViewController = UINavigationController(rootViewController: gameViewController)
+        
+        let navigationViewController = UINavigationController(
+            rootViewController: gameViewController
+        )
+        router.navigationController = navigationViewController
         window.rootViewController = navigationViewController
         window.makeKeyAndVisible()
     }

@@ -122,7 +122,7 @@
                                             <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="onPouseButtonTap:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="iDT-Qv-lTJ"/>
+                                            <action selector="onPouseButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="9CQ-i3-96E"/>
                                         </connections>
                                     </button>
                                 </subviews>
