@@ -6,16 +6,19 @@
 //
 
 import UIKit
+import Combine
 
 protocol NumpadInterectionHandler {
     func didTap(number: Int)
+    func numberFinished(_ number: Int) -> AnyPublisher<Bool, Never>
 }
 
 class NumpadViewController: UIViewController {
     let totalNumbers: Int = 9
     let buttonSpacing: CGFloat = 10
     let interectionHandler: NumpadInterectionHandler
-    private var numpadViews: [UIView] = []
+    private var numpadViews: [UIButton] = []
+    private var cancellables = Set<AnyCancellable>()
     
     init(interectionHandler: NumpadInterectionHandler) {
         self.interectionHandler = interectionHandler
@@ -34,16 +37,24 @@ class NumpadViewController: UIViewController {
     func setupContent() {
         for number in 1...totalNumbers {
             let button = UIButton(type: .system, primaryAction: UIAction(handler: {
-                [weak self] _ in
+                [weak self] action in
                 self?.interectionHandler.didTap(number: number)
             }))
             
             button.setTitle("\(number)", for: .normal)
             button.setTitleColor(.blue, for: .normal)
+            button.setTitleColor(.clear, for: .disabled)
             button.titleLabel?.font = .systemFont(ofSize: 30)
             view.addSubview(button)
             addConstraints(for: button, previousButton: numpadViews.last)
             numpadViews.append(button)
+            
+            interectionHandler.numberFinished(number)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak button] isFinished in
+                    button?.isEnabled = !isFinished
+                }
+                .store(in: &cancellables)
         }
         numpadViews.last?.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }

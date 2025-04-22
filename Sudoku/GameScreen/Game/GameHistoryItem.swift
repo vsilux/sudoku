@@ -8,6 +8,6 @@
 import Foundation
 
 struct GameHistoryItem {
-    let gameItem: GameItem
+    let index: SudokuGameItem.Index
     let previousValue: Int?
 }
