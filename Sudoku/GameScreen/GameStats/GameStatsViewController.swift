@@ -56,7 +56,7 @@ class GameStatsViewController: UIViewController {
     
     private func configureContent() {
         guard let dataProvider = dataProvider else { return }
-        self.maxScoreLabel.text = formattedScore(dataProvider.maxScore())
+        self.maxScoreLabel.text = Utilities.formattedScore(dataProvider.maxScore())
         self.difficultyLabel.text = dataProvider.difficulty()
         
         dataProvider.mistakes().sink { [weak self] numberOfMistakes in
@@ -66,22 +66,8 @@ class GameStatsViewController: UIViewController {
         guard let timeCounter = timeCounter else { return }
         
         timeCounter.time().sink { [weak self] time in
-            self?.timeLabel.text = self?.formatToMinutesAndSeconds(time)
+            self?.timeLabel.text = Utilities.formatToMinutesAndSeconds(time)
         }.store(in: &cancellables)
-    }
-
-    private func formattedScore(_ score: Int) -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 0
-        formatter.groupingSeparator = " "
-        return formatter.string(for: score) ?? "\(score)"
-    }
-    
-    private func formatToMinutesAndSeconds(_ timeInterval: Int) -> String {
-        let minutes = Int(timeInterval) / 60
-        let seconds = Int(timeInterval) % 60
-        return String(format: "%02d:%02d", minutes, seconds)
     }
     
     @IBAction private func onPouseButtonTap(_ sender: UIButton) {

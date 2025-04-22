@@ -8,9 +8,13 @@
 import Foundation
 import Combine
 
+protocol GameNavigationRouter {
+    func showPauseScreen(dificulty: String, mistakesCount: Int, time: Int)
+}
 
 class GameService: SudokuBoardConentDataSource, SudokuBoardInteractionHandler {
     private let game: SudokuGame
+    private let router: GameNavigationRouter
     private var selectedItemIndex: SudokuGameItem.Index?
     private var timer: Timer?
     private var gameHistory: [GameHistoryItem] = []
@@ -19,8 +23,9 @@ class GameService: SudokuBoardConentDataSource, SudokuBoardInteractionHandler {
     @Published private var mistakesCount: Int = 0
     @Published private var inGameTime: Int = 0
     
-    init(game: SudokuGame) {
+    init(game: SudokuGame, router: GameNavigationRouter) {
         self.game = game
+        self.router = router
         self.gameItems = game.items
             .map { row in row.map { GameItem(sudokuItem: $0) } }
     }
@@ -124,7 +129,13 @@ extension GameService: GameTimeCounter {
     }
     
     func pauseGame() {
+        guard timer?.isValid ?? false else { return }
         timer?.invalidate()
+        router.showPauseScreen(
+            dificulty: game.difficulty.name,
+            mistakesCount: mistakesCount,
+            time: inGameTime
+        )
     }
 }
 
