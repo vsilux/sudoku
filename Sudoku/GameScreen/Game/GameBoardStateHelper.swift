@@ -9,7 +9,7 @@ import Foundation
 
 enum GameBoardStateHelper {
     
-    static func hilightCross(in items: inout [[GameItem]], selectedItemIndex: SudokuGameItem.Index?) {
+    static func hilightCross(in items: inout [[GameItem]], selectedItemIndex: GameService.Index?) {
         guard let selectedItemIndex = selectedItemIndex else { return }
         
         // Hilight selected row
@@ -26,7 +26,7 @@ enum GameBoardStateHelper {
         }
     }
     
-    static func hilightSame(in items: inout [[GameItem]], selectedItemIndex: SudokuGameItem.Index?) {
+    static func hilightSame(in items: inout [[GameItem]], selectedItemIndex: GameService.Index?) {
         guard let selectedItemIndex = selectedItemIndex else { return }
         
         let selectedValue = items[selectedItemIndex.row][selectedItemIndex.column].value
@@ -52,7 +52,7 @@ enum GameBoardStateHelper {
         }
     }
     
-    static func hilightBlock(in items: inout [[GameItem]], selectedItemIndex: SudokuGameItem.Index?) {
+    static func hilightBlock(in items: inout [[GameItem]], selectedItemIndex: GameService.Index?) {
         guard let selectedItemIndex = selectedItemIndex else {
             return
         }
@@ -74,7 +74,7 @@ enum GameBoardStateHelper {
         }
     }
     
-    private static func block(for selectedItemIndex: SudokuGameItem.Index) -> (verticalBlockIndex: Int, horizontalBlockIndex: Int) {
+    private static func block(for selectedItemIndex: GameService.Index) -> (verticalBlockIndex: Int, horizontalBlockIndex: Int) {
         let verticalIndex = selectedItemIndex.row / SudokuConstants.fildBlocSize
         let horizontalIndex = selectedItemIndex.column / SudokuConstants.fildBlocSize
         

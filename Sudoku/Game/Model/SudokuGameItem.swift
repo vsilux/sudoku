@@ -7,26 +7,29 @@
 
 import Foundation
 
-struct SudokuGameItem: Codable, Hashable, Identifiable {
-    var id: Index
+struct SudokuGameItem: Identifiable {
+    var id: Int64?
+    var row: Int
+    var column: Int
     var correctValue: Int
     var value: Int?
     var isEditable: Bool
-}
-
-extension SudokuGameItem {
-    struct Index: Codable, Hashable, Equatable {
-        var row: Int
-        var column: Int
-        
-        func hash(into hasher: inout Hasher) {
-            hasher.combine(row)
-            hasher.combine(column)
-        }
-        
-        static func == (lhs: Index, rhs: Index) -> Bool {
-            return lhs.row == rhs.row && lhs.column == rhs.column
-        }
+    
+    static var invalid: SudokuGameItem {
+        SudokuGameItem(
+            row: -1,
+            column: -1,
+            correctValue: 0,
+            value: nil,
+            isEditable: true
+        )
     }
 }
 
+extension SudokuGameItem: Codable, Equatable {
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.row == rhs.row &&
+        lhs.column == rhs.column &&
+        lhs.correctValue == rhs.correctValue
+    }
+}

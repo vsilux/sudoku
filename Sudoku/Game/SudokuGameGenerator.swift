@@ -9,7 +9,13 @@ import Foundation
 
 class SudokuGameGenerator {
     func generateBoard(difficulty: SudokuGame.Difficulty) -> SudokuGame {
-        var items: [[SudokuGameItem]] = Array(repeating: Array(repeating: SudokuGameItem(id: .init(row: 0, column: 0), correctValue: 0, value: nil, isEditable: true), count: SudokuConstants.fildSize), count: SudokuConstants.fildSize)
+        var items: [[SudokuGameItem]] = Array(
+            repeating: Array(
+                repeating: SudokuGameItem.invalid,
+                count: SudokuConstants.fildSize
+            ),
+            count: SudokuConstants.fildSize
+        )
         
         // Fill the diagonal 3x3 boxes
         for i in stride(from: 0, to: SudokuConstants.fildSize, by: 3) {
@@ -29,9 +35,14 @@ class SudokuGameGenerator {
         var numbers = Array(1...SudokuConstants.fildSize).shuffled()
         for i in 0..<3 {
             for j in 0..<3 {
-                let index = SudokuGameItem.Index(row: startRow + i, column: startColumn + j)
                 let value = numbers.removeFirst()
-                items[startRow + i][startColumn + j] = SudokuGameItem(id: index, correctValue: value, value: value, isEditable: false)
+                items[startRow + i][startColumn + j] = SudokuGameItem(
+                    row: startRow + i,
+                    column: startColumn + j,
+                    correctValue: value,
+                    value: value,
+                    isEditable: false
+                )
             }
         }
     }
@@ -50,12 +61,11 @@ class SudokuGameGenerator {
         
         for num in 1...SudokuConstants.fildSize {
             if isSafeToPlace(row: row, column: column, num: num, items: items) {
-                let index = SudokuGameItem.Index(row: row, column: column)
-                items[row][column] = SudokuGameItem(id: index, correctValue: num, value: num, isEditable: false)
+                items[row][column] = SudokuGameItem(row: row, column: column, correctValue: num, value: num, isEditable: false)
                 if fillRemainingCells(row: nextRow, column: nextColumn, items: &items) {
                     return true
                 }
-                items[row][column] = SudokuGameItem(id: index, correctValue: 0, value: nil, isEditable: true)
+                items[row][column] = SudokuGameItem(row: row, column: column, correctValue: 0, value: nil, isEditable: true)
             }
         }
         

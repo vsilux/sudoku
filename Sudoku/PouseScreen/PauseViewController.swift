@@ -33,6 +33,7 @@ class PauseViewController: UIViewController {
         difficultyLabel.text = model.difficulty
         mistakesCountLabel.text = "\(model.mistakesCount)/3"
         timeLabel.text = Utilities.formatToMinutesAndSeconds(model.time)
+        scoreLabel.text = Utilities.formattedScore(model.score)
     }
     
     

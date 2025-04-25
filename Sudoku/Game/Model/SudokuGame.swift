@@ -9,30 +9,31 @@ import Foundation
 import Combine
 
 final class SudokuGame: Codable, Hashable, Identifiable {
-    let id: UUID
+    private(set) var id: UUID = UUID()
     let difficulty: Difficulty
     private(set) var items: [[SudokuGameItem]]
     private(set) var time: TimeInterval
     private(set) var mistakesCount: Int
     private(set) var suggestionsCount: Int
     private(set) var isSolved: Bool
+    private(set) var score: Int
     
     init(
-        id: UUID = UUID(),
         difficulty: Difficulty = .easy,
         items: [[SudokuGameItem]],
         time: TimeInterval = 0.0,
         mistakesCount: Int = 0,
         suggestionsCount: Int = 1,
-        isSolved: Bool = false
+        isSolved: Bool = false,
+        score: Int = 0
     ) {
-        self.id = id
         self.difficulty = difficulty
         self.items = items
         self.time = time
         self.mistakesCount = mistakesCount
         self.suggestionsCount = suggestionsCount
         self.isSolved = isSolved
+        self.score = score
     }
     
     func updateTime(_ time: TimeInterval) {
@@ -49,6 +50,10 @@ final class SudokuGame: Codable, Hashable, Identifiable {
     
     func sloved() {
         self.isSolved = true
+    }
+    
+    func update(score: Int) {
+        self.score = score
     }
     
     func hash(into hasher: inout Hasher) {
@@ -79,4 +84,3 @@ extension SudokuGame {
         }
     }
 }
-

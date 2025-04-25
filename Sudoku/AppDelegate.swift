@@ -5,8 +5,6 @@
 //  Created by Illia Suvorov on 03.04.2025.
 //
 
-import FirebaseCore
-import FirebaseAuth
 import UIKit
 
 @main
@@ -17,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication
             .LaunchOptionsKey: Any]?
     ) -> Bool {
-        FirebaseApp.configure()
         return true
     }
 
@@ -30,12 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ) -> UISceneConfiguration {
         return UISceneConfiguration(
             name: "Default Configuration",
-            sessionRole: connectingSceneSession.role)
-    }
-    
-    func application(_ app: UIApplication,
-                     open url: URL,
-                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        return GoogleAuthSerivce.handle(url: url)
+            sessionRole: connectingSceneSession.role
+        )
     }
 }

@@ -11,7 +11,7 @@ enum App {
     // Mark: run initial screen
     static func run(in window: UIWindow, sceneEventStream: SceneEventStream) {
         let router = NavigationRouter()
-        let game = SudokuGameGenerator().generateBoard(difficulty: .easy)
+        let game = SudokuGameGenerator().generateBoard(difficulty: .hard)
         let sizeProvider = SudokuBoardScreenBasedSizeProvider(
             screenWidth: window.bounds.width
         )

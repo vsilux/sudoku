@@ -9,8 +9,9 @@ import Foundation
 import Combine
 
 class GameService: SudokuBoardConentDataSource, SudokuBoardInteractionHandler {
+    typealias Index = (row: Int, column: Int)
     private let game: SudokuGame
-    private var selectedItemIndex: SudokuGameItem.Index?
+    private var selectedItemIndex: Index?
     private var gameHistory: [GameHistoryItem] = []
     @Published private var finishedNumbers = Array(repeating: false, count: SudokuConstants.fildSize)
     @Published private var gameItems: [[GameItem]] = []
@@ -38,7 +39,7 @@ class GameService: SudokuBoardConentDataSource, SudokuBoardInteractionHandler {
             GameBoardStateHelper.cleanup(in: &items)
         }
         items[row][column].state = .selected
-        selectedItemIndex = SudokuGameItem.Index(row: row, column: column)
+        selectedItemIndex = (row: row, column: column)
         updateHilights(in: &items)
         gameItems = items
     }
@@ -64,7 +65,7 @@ class GameService: SudokuBoardConentDataSource, SudokuBoardInteractionHandler {
             item.value = value
             gameItems[selectedItemIndex.row][selectedItemIndex.column] = item
             gameHistory.append(
-                GameHistoryItem(index: item.id, previousValue: previousValue)
+                GameHistoryItem(row: item.row, column: item.column, previousValue: previousValue)
             )
             var items = gameItems
             updateHilights(in: &items)
@@ -74,8 +75,8 @@ class GameService: SudokuBoardConentDataSource, SudokuBoardInteractionHandler {
     }
     
     private func undo(with historyItem: GameHistoryItem) {
-        gameItems[historyItem.index.row][historyItem.index.column].value = historyItem.previousValue
-        selectedItemAt(row: historyItem.index.row, column: historyItem.index.column)
+        gameItems[historyItem.row][historyItem.column].value = historyItem.previousValue
+        selectedItemAt(row: historyItem.row, column: historyItem.column)
         updateFullFilledNumbers()
     }
     

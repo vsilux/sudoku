@@ -20,7 +20,7 @@ final class SudokuGameStatsTests: XCTestCase {
     }
     
     func test_gameStatsViewController_usesGameStatsDataProvider() {
-        let sut = makeSUT()
+        let sut = makeSUT(dataProvider: makeDataProvider())
         
         _ = sut.view
         XCTAssertEqual(sut.maxScoreLabel?.text, "12 305")
@@ -31,7 +31,7 @@ final class SudokuGameStatsTests: XCTestCase {
     
     func test_gameStatsViewController_isUpdatingTimeLabel() {
         let timeCounter = MockGameTimeCounter()
-        let sut = makeSUT(timeCounter: timeCounter)
+        let sut = makeSUT(dataProvider: makeDataProvider(timeCounter: timeCounter))
         
         _ = sut.view
         XCTAssertEqual(sut.timeLabel?.text, "02:02")
@@ -51,48 +51,13 @@ final class SudokuGameStatsTests: XCTestCase {
     
     // MARK: - Helpers
     
+    func makeDataProvider(timeCounter: GameTimeCounter = MockGameTimeCounter()) -> GameStatsDataProvider {
+        MockGameStatsDataProvider(timeCounter: timeCounter)
+    }
+    
     func makeSUT(
-        dataProvider: GameStatsDataProvider = MockGameStatsDataProvider(),
-        timeCounter: MockGameTimeCounter = MockGameTimeCounter()
+        dataProvider: GameStatsDataProvider,
     ) -> GameStatsViewController {
-        return GameStatsViewController.make(with: dataProvider, timeCounter: timeCounter)
-    }
-    
-    // MARK: - Mocks
-    
-    class MockGameStatsDataProvider: GameStatsDataProvider {
-        @Published private var mistakesCount: Int = 0
-        
-        func maxScore() -> Int {
-            12305
-        }
-        
-        func difficulty() -> String {
-            "hard"
-        }
-        
-        func mistakes() -> AnyPublisher<Int, Never> {
-            $mistakesCount.eraseToAnyPublisher()
-        }
-        
-        func incrementMistakes() {
-            mistakesCount += 1
-        }
-    }
-    
-    class MockGameTimeCounter: GameTimeCounter {
-        @Published private var seconds: Int = 122
-        
-        func time() -> AnyPublisher<Int, Never> {
-            $seconds.eraseToAnyPublisher()
-        }
-        
-        private(set) var isPoused = false
-        func resumeGame() { isPoused = false }
-        func pauseGame() { isPoused = true }
-        
-        func incrementTime() {
-            seconds += 1
-        }
+        return GameStatsViewController.make(with: dataProvider, router: MockedRouter())
     }
 }

@@ -18,8 +18,9 @@ class GameTimeService: GameTimeCounter {
         timer?.invalidate()
     }
     
-    init(sceneEventStream: SceneEventStream) {
+    init(sceneEventStream: SceneEventStream, inGameTime: Int = 0) {
         self.sceneEventStream = sceneEventStream
+        self.inGameTime = inGameTime
     }
     
     func startGame() {
