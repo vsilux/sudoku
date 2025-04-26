@@ -116,9 +116,9 @@ final class SudokuBoardViewControllerTests: XCTestCase {
     }
     
     class MockSudokuBoardInteractionHandler: SudokuBoardInteractionHandler {
-        var selectedItemIndex: [SudokuGameItem.Index] = []
+        var selectedItemIndex: [GameService.Index] = []
         func selectedItemAt(row: Int, column: Int) {
-            selectedItemIndex.append(SudokuGameItem.Index(row: row, column: column))
+            selectedItemIndex.append(GameService.Index(row: row, column: column))
         }
     }
 
