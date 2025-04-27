@@ -1,5 +1,5 @@
 //
-//  GameTimeService.swift
+//  GameTimeController.swift
 //  Sudoku
 //
 //  Created by Illia Suvorov on 22.04.2025.
@@ -8,19 +8,23 @@
 import Foundation
 import Combine
 
-class GameTimeService: GameTimeCounter {
+class GameTimeController: GameTimeCounter {
     private let sceneEventStream: SceneEventStream
     private var sceneEventCancalable: AnyCancellable?
     private var timer: Timer?
+    private let gameId: Int64
+    private let repository: GameRepository
     @Published private var inGameTime: Int = 0
     
     deinit {
         timer?.invalidate()
     }
     
-    init(sceneEventStream: SceneEventStream, inGameTime: Int = 0) {
+    init(game: SudokuGameModel, repository: GameRepository, sceneEventStream: SceneEventStream) {
+        self.repository = repository
+        inGameTime = game.time
+        gameId = game.id!
         self.sceneEventStream = sceneEventStream
-        self.inGameTime = inGameTime
     }
     
     func startGame() {
@@ -53,7 +57,9 @@ class GameTimeService: GameTimeCounter {
     private func scheduledTimer() {
         guard timer == nil else { return }
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
-            self?.inGameTime += 1
+            guard let self = self else { return }
+            self.inGameTime += 1
+            try? self.repository.updateTime(gameId: self.gameId, time: self.inGameTime)
         }
     }
     

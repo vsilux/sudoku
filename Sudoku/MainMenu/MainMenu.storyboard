@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eiN-cm-Z6F">
-                                <rect key="frame" x="16" y="748" width="361" height="52"/>
+                                <rect key="frame" x="16" y="716" width="361" height="52"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="NnR-VA-ZdP"/>
                                 </constraints>
@@ -33,7 +33,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ym4-cm-gKk">
-                                <rect key="frame" x="16" y="680" width="361" height="52"/>
+                                <rect key="frame" x="16" y="648" width="361" height="52"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="fMy-23-1tt"/>
                                 </constraints>
@@ -49,10 +49,10 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VFr-aO-jr1">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="680"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="648"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sudoku" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsx-eM-cjN">
-                                        <rect key="frame" x="94" y="304.66666666666669" width="205" height="70.666666666666686"/>
+                                        <rect key="frame" x="94" y="288.66666666666669" width="205" height="70.666666666666686"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="60"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -70,13 +70,13 @@
                         <constraints>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="eiN-cm-Z6F" secondAttribute="trailing" constant="16" id="9fy-d1-ono"/>
                             <constraint firstItem="eiN-cm-Z6F" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="Acn-8x-JZr"/>
-                            <constraint firstItem="eiN-cm-Z6F" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" constant="16" id="Ax4-U3-KiS"/>
                             <constraint firstItem="VFr-aO-jr1" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="AyB-RN-evc"/>
                             <constraint firstItem="Ym4-cm-gKk" firstAttribute="top" secondItem="VFr-aO-jr1" secondAttribute="bottom" id="Wnn-D6-016"/>
                             <constraint firstItem="eiN-cm-Z6F" firstAttribute="top" secondItem="Ym4-cm-gKk" secondAttribute="bottom" constant="16" id="ds7-Xp-FIS"/>
                             <constraint firstItem="VFr-aO-jr1" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="fT1-Jg-K6W"/>
                             <constraint firstItem="Ym4-cm-gKk" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="hOP-iD-LFC"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Ym4-cm-gKk" secondAttribute="trailing" constant="16" id="hVL-xg-Yyo"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="eiN-cm-Z6F" secondAttribute="bottom" constant="16" id="iKE-rh-mrS"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="VFr-aO-jr1" secondAttribute="trailing" id="kQa-xs-CNv"/>
                         </constraints>
                     </view>

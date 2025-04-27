@@ -8,7 +8,7 @@
 import Foundation
 
 protocol GameItemsGenerator {
-    func generateGameItems(for gameModel: SudokuGameModel) -> [[SudokuGameItemModel]]?
+    func generateGameItems(for gameModel: SudokuGameModel) throws -> [[SudokuGameItemModel]]
 }
 
 class SudokuGameItemsGenerator: GameItemsGenerator {
@@ -16,9 +16,9 @@ class SudokuGameItemsGenerator: GameItemsGenerator {
         case gameIdIsNil
     }
     
-    func generateGameItems(for gameModel: SudokuGameModel) -> [[SudokuGameItemModel]]? {
+    func generateGameItems(for gameModel: SudokuGameModel) throws -> [[SudokuGameItemModel]] {
         guard let gameId = gameModel.id else {
-            return nil
+            throw Error.gameIdIsNil
         }
         
         var items: [[SudokuGameItemModel]] = Array(

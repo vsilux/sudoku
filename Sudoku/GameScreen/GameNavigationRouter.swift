@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NavigationRouter: GameStatsNavigationRouter {
+class GameNavigationRouter: GameStatsNavigationRouter {
     weak var navigationController: UINavigationController?
     
     func showPauseScreen(
@@ -34,7 +34,7 @@ class NavigationRouter: GameStatsNavigationRouter {
     }
 }
 
-extension NavigationRouter: PauseScreenNavigationRouter {
+extension GameNavigationRouter: PauseScreenNavigationRouter {
     func resumeGame() {
         navigationController?.dismiss(animated: true, completion: nil)
     }

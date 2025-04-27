@@ -13,7 +13,7 @@ protocol SudokuBoardConentDataSource {
 }
 
 protocol SudokuBoardInteractionHandler {
-    func selectedItemAt(row: Int, column: Int)
+    func selectItemAt(row: Int, column: Int)
 }
 
 class SudokuBoardViewController: UICollectionViewController {
@@ -62,6 +62,6 @@ class SudokuBoardViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        interactionHandler.selectedItemAt(row: indexPath.section, column: indexPath.item)
+        interactionHandler.selectItemAt(row: indexPath.section, column: indexPath.item)
     }
 }

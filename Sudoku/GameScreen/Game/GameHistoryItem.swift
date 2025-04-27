@@ -8,6 +8,7 @@
 import Foundation
 
 struct GameHistoryItem {
+    let id: Int64
     let row: Int
     let column: Int
     let previousValue: Int?

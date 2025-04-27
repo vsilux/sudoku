@@ -8,7 +8,7 @@
 import Foundation
 
 struct GameItem: SudokuBoardItem {
-    var id: Int64?
+    var id: Int64
     var row: Int
     var column: Int
     var correctValue: Int
@@ -18,12 +18,22 @@ struct GameItem: SudokuBoardItem {
     var state: SudokuItemState
     
     init(sudokuItem: SudokuGameItem) {
-        id = sudokuItem.id
+        id = sudokuItem.id ?? -1
         row = sudokuItem.row
         column = sudokuItem.column
         correctValue = sudokuItem.correctValue
         value = sudokuItem.value
         isEditable = sudokuItem.isEditable
+        state = .normal // Default state, can be changed later
+    }
+    
+    init(model: SudokuGameItemModel) {
+        id = model.id ?? -1
+        row = model.row
+        column = model.column
+        correctValue = model.correctValue
+        value = model.value
+        isEditable = model.isEditable
         state = .normal // Default state, can be changed later
     }
 }

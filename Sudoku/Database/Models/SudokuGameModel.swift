@@ -46,7 +46,7 @@ extension SudokuGameModel: FetchableRecord, MutablePersistableRecord {
 }
 
 extension SudokuGameModel {
-    enum Difficulty: Int, Codable {
+    enum Difficulty: Int, CaseIterable, Codable {
         case easy = 30
         case medium = 40
         case hard = 50

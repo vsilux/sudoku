@@ -63,7 +63,7 @@ class SudokuLayout: UICollectionViewLayout {
     
     /// - Tag: LayoutAttributesForItem
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        return cachedAttributes[indexPath.section * 9 + indexPath.item]
+        cachedAttributes[indexPath.section * 9 + indexPath.item]
     }
     
     /// - Tag: LayoutAttributesForElements

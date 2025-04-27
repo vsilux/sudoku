@@ -28,18 +28,15 @@ struct SudokuBoardScreenBasedSizeProvider: SudokuBoardSizeProvider {
     
     init(screenWidth: Double) {
         self.screenWidth = screenWidth
-        print("screenWidth: \(screenWidth)")
+        
         let rawContentWidth = screenWidth - minimumContentMargin * 2.0
-        print("rawContentWidth: \(rawContentWidth)")
+        
         largeOffset = SudokuConstants.largeOffset
         smallOffset = SudokuConstants.smallOffset
+        
         let totalOffsets = SudokuConstants.smallOffsetsCount * smallOffset + SudokuConstants.largeOffsetsCount * largeOffset
-        print("totalOffsets: \(totalOffsets)")
         cellSize = CGFloat(Int((rawContentWidth - totalOffsets) / CGFloat(SudokuConstants.fildSize)))
-        print("cellSize: \(cellSize)")
         realContentWidth = cellSize * CGFloat(SudokuConstants.fildSize) + totalOffsets
-        print("realContentWidth: \(realContentWidth)")
         additionalPadding = minimumContentMargin + (rawContentWidth - realContentWidth) / 2
-        print("additionalPadding: \(additionalPadding)")
     }
 }

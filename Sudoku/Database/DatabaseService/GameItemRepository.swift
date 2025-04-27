@@ -7,39 +7,20 @@
 
 import GRDB
 
-protocol SudokuDatabaseService {
-    func save(game: inout SudokuGameModel) throws
-    func fetchGame(for id: Int64) throws -> SudokuGameModel?
-    func remove(game: SudokuGameModel) throws -> Bool
+protocol GameItemRepository {
     func save(gameItems: inout [[SudokuGameItemModel]]) throws
     func items(for game: SudokuGameModel) throws -> [[SudokuGameItemModel]]?
+    
     func save(gameItem: inout SudokuGameItemModel) throws
     func fetchGameItem(for id: Int64) throws -> SudokuGameItemModel?
+    func updateGameItem(id: Int64, value: Int?) throws
 }
 
-class DatabaseService: SudokuDatabaseService {
+class SudokuGameItemRepository: GameItemRepository {
     private let databaseQueue: DatabaseQueue
     
-    init(databaseQueue: DatabaseQueue) throws {
+    init(databaseQueue: DatabaseQueue) {
         self.databaseQueue = databaseQueue
-    }
-    
-    func save(game: inout SudokuGameModel) throws {
-        try databaseQueue.write { db in
-            try game.save(db)
-        }
-    }
-    
-    func fetchGame(for id: Int64) throws -> SudokuGameModel? {
-        try databaseQueue.read { db in
-            try SudokuGameModel.fetchOne(db, key: id)
-        }
-    }
-    
-    func remove(game: SudokuGameModel) throws -> Bool {
-        try databaseQueue.write { db in
-            try game.delete(db)
-        }
     }
     
     func save(gameItems: inout [[SudokuGameItemModel]]) throws {
@@ -75,4 +56,15 @@ class DatabaseService: SudokuDatabaseService {
             try SudokuGameItemModel.fetchOne(db, key: id)
         }
     }
+    
+    func updateGameItem(id: Int64, value: Int?) throws {
+        try databaseQueue.write { db in
+            try db
+                .execute(
+                    sql: "UPDATE sudokuGameItemModel SET value = :value WHERE id = :id",
+                    arguments: ["value": value, "id": id]
+                )
+        }
+    }
 }
+    
