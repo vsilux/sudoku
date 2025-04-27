@@ -96,7 +96,7 @@ extension UIView {
             return self.layer.shadowPath != nil
         }
         set {
-            if enableBezierPath {
+            if newValue {
                 self.layer.shadowPath = UIBezierPath(roundedRect: self.layer.bounds, cornerRadius: self.layer.cornerRadius).cgPath
             } else {
                 self.layer.shadowPath = nil

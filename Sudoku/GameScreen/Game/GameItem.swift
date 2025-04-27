@@ -17,16 +17,6 @@ struct GameItem: SudokuBoardItem {
     var isCorrect: Bool { value == nil || value == correctValue }
     var state: SudokuItemState
     
-    init(sudokuItem: SudokuGameItem) {
-        id = sudokuItem.id ?? -1
-        row = sudokuItem.row
-        column = sudokuItem.column
-        correctValue = sudokuItem.correctValue
-        value = sudokuItem.value
-        isEditable = sudokuItem.isEditable
-        state = .normal // Default state, can be changed later
-    }
-    
     init(model: SudokuGameItemModel) {
         id = model.id ?? -1
         row = model.row

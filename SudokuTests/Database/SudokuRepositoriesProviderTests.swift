@@ -12,7 +12,7 @@ final class SudokuRepositoriesProviderTests: XCTestCase {
 
     func test_SudokuRepositoriesProvider_initialized() {
         do {
-            let sut = try SudokuRepositoriesProvider(databaseQueueProvider: MockDatabaseQueueProvider(), migrator: SudokuDatabaseMigrator())
+            let _ = try SudokuRepositoriesProvider(databaseQueueProvider: MockDatabaseQueueProvider(), migrator: SudokuDatabaseMigrator())
         } catch {
             XCTFail("Failed to initialize SudokuRepositoriesProvider: \(error)")
         }
