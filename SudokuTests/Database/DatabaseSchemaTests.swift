@@ -108,8 +108,8 @@ extension SudokuGameModel {
         SudokuGameModel(
             difficulty: .hard,
             time: 10,
-            mistakesCount: 0,
-            suggestionsCount: 1,
+            mistakes: 0,
+            hints: 1,
             isSolved: false,
             score: 0
         )

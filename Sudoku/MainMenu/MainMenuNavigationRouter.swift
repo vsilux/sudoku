@@ -46,12 +46,12 @@ class MainMenuNavigationRouter: MainMenuRouter {
     
     private func start(game: SudokuGameModel, gameItems: [[SudokuGameItemModel]]) {
         let gameRepository = repositoryProvider.gameRepository()
+        let gameInteractor = SudokuGameInteractor(game: game, repository: repositoryProvider.gameRepository())
         let gameController = SudokuGameController(
-            gameRepository: gameRepository,
+            gameInteractor: gameInteractor,
             gameItemRepository: repositoryProvider.gameItemRepository(),
             timeCounter: GameTimeController(
-                game: game,
-                repository: gameRepository,
+                gameInteractor: gameInteractor,
                 sceneEventStream: scenEventStream
             ),
             game: game,

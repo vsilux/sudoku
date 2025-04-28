@@ -12,16 +12,16 @@ struct SudokuGameModel: Codable {
     var id: Int64?
     let difficulty: Difficulty
     var time: Int
-    var mistakesCount: Int
-    var suggestionsCount: Int
+    var mistakes: Int
+    var hints: Int
     var isSolved: Bool
     var score: Int
     
-    init(difficulty: Difficulty, time: Int = 0, mistakesCount: Int = 0, suggestionsCount: Int = 0, isSolved: Bool = false, score: Int = 0) {
+    init(difficulty: Difficulty, time: Int = 0, mistakes: Int = 0, hints: Int = 0, isSolved: Bool = false, score: Int = 0) {
         self.difficulty = difficulty
         self.time = time
-        self.mistakesCount = mistakesCount
-        self.suggestionsCount = suggestionsCount
+        self.mistakes = mistakes
+        self.hints = hints
         self.isSolved = isSolved
         self.score = score
     }

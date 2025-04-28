@@ -12,7 +12,7 @@ class SudokuGameController {
     typealias Index = (row: Int, column: Int)
     private var selectedItemIndex: Index?
     private var gameHistory: [GameHistoryItem] = []
-    private let gameRepository: GameRepository
+    private let gameInteractor: GameInteractor
     private let gameItemRepository: GameItemRepository
     let timeCounter: GameTimeCounter
     
@@ -24,13 +24,13 @@ class SudokuGameController {
     @Published private var gameItems: [[GameItem]] = []
     
     init(
-        gameRepository: GameRepository,
+        gameInteractor: GameInteractor,
         gameItemRepository: GameItemRepository,
         timeCounter: GameTimeCounter,
         game: SudokuGameModel,
         gameItemModels: [[SudokuGameItemModel]]
     ) {
-        self.gameRepository = gameRepository
+        self.gameInteractor = gameInteractor
         self.gameItemRepository = gameItemRepository
         self.timeCounter = timeCounter
         self.game = game
@@ -43,6 +43,7 @@ class SudokuGameController {
                 GameItem(model: itemModel)
             }
         }
+        updateFullFilledNumbers()
     }
     
     private func updateHilights(in items: inout [[GameItem]]) {
@@ -139,7 +140,7 @@ extension SudokuGameController: GameStatsDataProvider {
     func gameStats() -> any GameStats {
         return GameStatsModel(
             difficulty: game.difficulty.name,
-            mistakesCount: game.mistakesCount,
+            mistakesCount: game.mistakes,
             time: timeCounter.currentTime(),
             score: game.score,
             maxScore: 0
@@ -147,7 +148,7 @@ extension SudokuGameController: GameStatsDataProvider {
     }
     
     func mistakes() -> AnyPublisher<Int, Never> {
-        $game.map { $0.mistakesCount }
+        $game.map { $0.mistakes }
             .eraseToAnyPublisher()
     }
 }

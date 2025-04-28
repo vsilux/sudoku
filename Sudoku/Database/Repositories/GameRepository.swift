@@ -14,12 +14,23 @@ protocol GameRepository {
     func fetchUnfinishedGames() throws -> [SudokuGameModel]
     func fetchLatestGame() throws -> SudokuGameModel?
     func delete(game: SudokuGameModel) throws -> Bool
-    func updateTime(gameId: Int64, time: Int) throws
+    
+    func update(time: Int, for gameId: Int64) throws
+    func update(mistakes: Int, for gameId: Int64) throws
+    func update(hints: Int, for gameId: Int64) throws
+    func update(score: Int, for gameId: Int64) throws
 }
 
 class SudokuGameRepository: GameRepository {
-    private let fetchUnfinishedGamesSQL = "SELECT * FROM sudokuGameModel WHERE isSolved = 0"
-    private let fetchLatestGameSQL = "SELECT * FROM sudokuGameModel ORDER BY id DESC LIMIT 1"
+    enum SQLQuery: String {
+        case fetchUnfinishedGames = "SELECT * FROM sudokuGameModel WHERE isSolved = 0"
+        case fetchLatestGame = "SELECT * FROM sudokuGameModel ORDER BY id DESC LIMIT 1"
+        case updateTime = "UPDATE sudokuGameModel SET time = :time WHERE id = :id"
+        case updateMistakes = "UPDATE sudokuGameModel SET mistakes = :mistakes WHERE id = :id"
+        case updateHints = "UPDATE sudokuGameModel SET hints = :hints WHERE id = :id"
+        case updateScore = "UPDATE sudokuGameModel SET score = :score WHERE id = :id"
+    }
+    
     private let databaseQueue: DatabaseQueue
     
     init(databaseQueue: DatabaseQueue) {
@@ -42,7 +53,7 @@ class SudokuGameRepository: GameRepository {
         try databaseQueue.read { db in
             let games = try SudokuGameModel.fetchAll(
                 db,
-                sql: fetchUnfinishedGamesSQL
+                sql: SQLQuery.fetchUnfinishedGames.rawValue
             )
             return games
         }
@@ -52,7 +63,7 @@ class SudokuGameRepository: GameRepository {
         try databaseQueue.read { db in
             let game = try SudokuGameModel.fetchOne(
                 db,
-                sql: fetchLatestGameSQL
+                sql: SQLQuery.fetchLatestGame.rawValue
             )
             return game
         }
@@ -64,12 +75,42 @@ class SudokuGameRepository: GameRepository {
         }
     }
     
-    func updateTime(gameId: Int64, time: Int) throws {
+    func update(time: Int, for gameId: Int64) throws {
         try databaseQueue.write { db in
             try db
                 .execute(
-                    sql: "UPDATE sudokuGameModel SET time = :time WHERE id = :id",
+                    sql: SQLQuery.updateTime.rawValue,
                     arguments: ["time": time, "id": gameId]
+                )
+        }
+    }
+    
+    func update(mistakes: Int, for gameId: Int64) throws {
+        try databaseQueue.write { db in
+            try db
+                .execute(
+                    sql: SQLQuery.updateMistakes.rawValue,
+                    arguments: ["mistakes": mistakes, "id": gameId]
+                )
+        }
+    }
+    
+    func update(hints: Int, for gameId: Int64) throws {
+        try databaseQueue.write { db in
+            try db
+                .execute(
+                    sql: SQLQuery.updateHints.rawValue,
+                    arguments: ["hints": hints, "id": gameId]
+                )
+        }
+    }
+    
+    func update(score: Int, for gameId: Int64) throws {
+        try databaseQueue.write { db in
+            try db
+                .execute(
+                    sql: SQLQuery.updateScore.rawValue,
+                    arguments: ["score": score, "id": gameId]
                 )
         }
     }

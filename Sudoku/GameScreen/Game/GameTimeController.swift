@@ -10,20 +10,17 @@ import Combine
 
 class GameTimeController: GameTimeCounter {
     private let sceneEventStream: SceneEventStream
-    private var sceneEventCancalable: AnyCancellable?
+    private let gameInteractor: GameInteractor
+    
     private var timer: Timer?
-    private let gameId: Int64
-    private let repository: GameRepository
-    @Published private var inGameTime: Int = 0
+    private var sceneEventCancalable: AnyCancellable?
     
     deinit {
         timer?.invalidate()
     }
     
-    init(game: SudokuGameModel, repository: GameRepository, sceneEventStream: SceneEventStream) {
-        self.repository = repository
-        inGameTime = game.time
-        gameId = game.id!
+    init(gameInteractor: GameInteractor, sceneEventStream: SceneEventStream) {
+        self.gameInteractor = gameInteractor
         self.sceneEventStream = sceneEventStream
     }
     
@@ -40,7 +37,9 @@ class GameTimeController: GameTimeCounter {
     }
     
     func time() -> AnyPublisher<Int, Never> {
-        $inGameTime.eraseToAnyPublisher()
+        gameInteractor.gamePublisher.map { game in
+            game.time
+        }.eraseToAnyPublisher()
     }
     
     private func handleSceneEvent(_ event: SceneEvent) {
@@ -58,8 +57,7 @@ class GameTimeController: GameTimeCounter {
         guard timer == nil else { return }
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             guard let self = self else { return }
-            self.inGameTime += 1
-            try? self.repository.updateTime(gameId: self.gameId, time: self.inGameTime)
+            self.gameInteractor.update(time: gameInteractor.game.time + 1)
         }
     }
     
@@ -70,6 +68,6 @@ class GameTimeController: GameTimeCounter {
     }
     
     func currentTime() -> Int {
-        inGameTime
+        gameInteractor.game.time
     }
 }

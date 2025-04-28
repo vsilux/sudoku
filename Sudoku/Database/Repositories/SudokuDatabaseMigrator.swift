@@ -24,8 +24,8 @@ class SudokuDatabaseMigrator: DatabaseSchemeMigrator {
                 table.autoIncrementedPrimaryKey("id")
                 table.column("difficulty", .integer).notNull()
                 table.column("time", .integer).notNull()
-                table.column("mistakesCount", .integer).notNull()
-                table.column("suggestionsCount", .integer).notNull()
+                table.column("mistakes", .integer).notNull()
+                table.column("hints", .integer).notNull()
                 table.column("isSolved", .boolean).notNull()
                 table.column("score", .integer).notNull()
             }
