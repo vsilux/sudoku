@@ -47,6 +47,7 @@ class MainMenuNavigationRouter: MainMenuRouter {
     private func start(game: SudokuGameModel, gameItems: [[SudokuGameItemModel]]) {
         let gameRepository = repositoryProvider.gameRepository()
         let gameInteractor = SudokuGameInteractor(game: game, repository: repositoryProvider.gameRepository())
+        let gameScoreController = SudokuGameScoreController(gameInteractor: gameInteractor, gameItemModels: gameItems)
         let gameController = SudokuGameController(
             gameInteractor: gameInteractor,
             gameItemRepository: repositoryProvider.gameItemRepository(),
@@ -54,6 +55,7 @@ class MainMenuNavigationRouter: MainMenuRouter {
                 gameInteractor: gameInteractor,
                 sceneEventStream: scenEventStream
             ),
+            gameScoreController: gameScoreController,
             game: game,
             gameItemModels: gameItems
         )
@@ -79,7 +81,8 @@ class MainMenuNavigationRouter: MainMenuRouter {
                 .make(with: gameController),
             numpadViewController: NumpadViewController(
                 interectionHandler: gameController
-            )
+            ),
+            scoreProvider: gameScoreController
         )
         
         navigationController?.pushViewController(gameViewController, animated: true)

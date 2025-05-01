@@ -9,14 +9,14 @@ import Foundation
 import Combine
 
 class SudokuGameController {
-    typealias Index = (row: Int, column: Int)
+    typealias Index = GameBoardIndex
     private var selectedItemIndex: Index?
     private var gameHistory: [GameHistoryItem] = []
     private let gameInteractor: GameInteractor
     private let gameItemRepository: GameItemRepository
     let timeCounter: GameTimeCounter
+    let gameScoreController: GameScoreController
     
-    @Published private var game: SudokuGameModel
     @Published private var finishedNumbers = Array(
         repeating: false,
         count: SudokuConstants.fildSize
@@ -27,13 +27,14 @@ class SudokuGameController {
         gameInteractor: GameInteractor,
         gameItemRepository: GameItemRepository,
         timeCounter: GameTimeCounter,
+        gameScoreController: GameScoreController,
         game: SudokuGameModel,
         gameItemModels: [[SudokuGameItemModel]]
     ) {
         self.gameInteractor = gameInteractor
         self.gameItemRepository = gameItemRepository
         self.timeCounter = timeCounter
-        self.game = game
+        self.gameScoreController = gameScoreController
         setupGameItems(gameItemModels)
     }
     
@@ -69,10 +70,13 @@ class SudokuGameController {
         guard value != item.value else { return }
         
         if item.isEditable {
+            gameScoreController.updateScore(for: selectedItemIndex)
+            
             let previousValue = item.value
             item.value = value
             try? gameItemRepository.updateGameItem(id: item.id, value: value)
             gameItems[selectedItemIndex.row][selectedItemIndex.column] = item
+            
             gameHistory.append(
                 GameHistoryItem(
                     id: item.id,
@@ -81,6 +85,7 @@ class SudokuGameController {
                     previousValue: previousValue
                 )
             )
+            
             var items = gameItems
             updateHilights(in: &items)
             gameItems = items
@@ -90,12 +95,18 @@ class SudokuGameController {
     
     private func undo(with historyItem: GameHistoryItem) {
         gameItems[historyItem.row][historyItem.column].value = historyItem.previousValue
-        try? gameItemRepository.updateGameItem(id: historyItem.id, value: historyItem.previousValue)
+        try? gameItemRepository
+            .updateGameItem(
+                id: historyItem.id,
+                value: historyItem.previousValue
+            )
         selectItemAt(row: historyItem.row, column: historyItem.column)
         updateFullFilledNumbers()
     }
     
     private func eraseSelected() {
+        guard let selectedItemIndex = selectedItemIndex else { return }
+        
         updateValueForSelectedItem(value: nil)
     }
     
@@ -120,7 +131,7 @@ extension SudokuGameController: SudokuBoardInteractionHandler {
             GameBoardStateHelper.cleanup(in: &items)
         }
         items[row][column].state = .selected
-        selectedItemIndex = (row: row, column: column)
+        selectedItemIndex = Index(row: row, column: column)
         updateHilights(in: &items)
         gameItems = items
     }
@@ -139,16 +150,16 @@ extension SudokuGameController: SudokuBoardConentDataSource {
 extension SudokuGameController: GameStatsDataProvider {
     func gameStats() -> any GameStats {
         return GameStatsModel(
-            difficulty: game.difficulty.name,
-            mistakesCount: game.mistakes,
+            difficulty: gameInteractor.game.difficulty.name,
+            mistakesCount: gameInteractor.game.mistakes,
             time: timeCounter.currentTime(),
-            score: game.score,
+            score: gameInteractor.game.score,
             maxScore: 0
         )
     }
     
     func mistakes() -> AnyPublisher<Int, Never> {
-        $game.map { $0.mistakes }
+        gameInteractor.gamePublisher.map { $0.mistakes }
             .eraseToAnyPublisher()
     }
 }
@@ -183,4 +194,3 @@ extension SudokuGameController: GameActionsHandler {
         
     }
 }
-

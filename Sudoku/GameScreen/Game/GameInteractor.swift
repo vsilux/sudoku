@@ -15,6 +15,7 @@ protocol GameInteractor {
     
     func update(time: Int)
     func update(mistakesCount: Int)
+    func update(score: Int)
 }
 
 class SudokuGameInteractor: GameInteractor {

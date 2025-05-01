@@ -8,7 +8,7 @@
 import Foundation
 
 enum GameBoardStateHelper {
-    typealias Index = (row: Int, column: Int)
+    typealias Index = GameBoardIndex
     
     static func hilightCross(in items: inout [[GameItem]], selectedItemIndex: Index?) {
         guard let selectedItemIndex = selectedItemIndex else { return }

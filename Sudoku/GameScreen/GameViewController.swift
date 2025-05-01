@@ -6,6 +6,11 @@
 //
 
 import UIKit
+import Combine
+
+protocol GameScoreProvider {
+    func score() -> any Publisher<Int, Never>
+}
 
 class GameViewController: UIViewController {
     
@@ -20,19 +25,24 @@ class GameViewController: UIViewController {
     private let boardSizeWidth: CGFloat
     private let gameActionsViewController: UIViewController
     private let numpadViewController: UIViewController
+    private let scoreProvider: GameScoreProvider
 
+    private var cancellables: Set<AnyCancellable> = []
+    
     init(
         gameStatsViewController: UIViewController,
         boardViewController: UIViewController,
         boardSizeWidth: CGFloat,
         gameActionsViewController: UIViewController,
-        numpadViewController: UIViewController
+        numpadViewController: UIViewController,
+        scoreProvider: GameScoreProvider
     ) {
         self.gameStatsViewController = gameStatsViewController
         self.boardViewController = boardViewController
         self.boardSizeWidth = boardSizeWidth
         self.gameActionsViewController = gameActionsViewController
         self.numpadViewController = numpadViewController
+        self.scoreProvider = scoreProvider
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -48,6 +58,7 @@ class GameViewController: UIViewController {
         embedBoardController()
         embedGameActionsController()
         embedNumpadController()
+        setupScoreTitle()
     }
     
     private func embedGameStatsController() {
@@ -97,6 +108,14 @@ class GameViewController: UIViewController {
         numpadViewController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         numpadViewController.view.widthAnchor.constraint(equalToConstant: boardSizeWidth).isActive = true
         numpadViewController.view.heightAnchor.constraint(equalToConstant: numpadHeight).isActive = true
+    }
+    
+    private func setupScoreTitle() {
+        scoreProvider.score().sink { [weak self] newScore in
+            guard let self = self else { return }
+            
+            self.title = "\(newScore)"
+        }.store(in: &cancellables)
     }
 
 }
