@@ -45,20 +45,15 @@ class MainMenuNavigationRouter: MainMenuRouter {
     }
     
     private func start(game: SudokuGameModel, gameItems: [[SudokuGameItemModel]]) {
-        let gameRepository = repositoryProvider.gameRepository()
         let gameInteractor = SudokuGameInteractor(game: game, repository: repositoryProvider.gameRepository())
         let gameScoreController = SudokuGameScoreController(gameInteractor: gameInteractor, gameItemModels: gameItems)
-        let gameController = SudokuGameController(
-            gameInteractor: gameInteractor,
-            gameItemRepository: repositoryProvider.gameItemRepository(),
-            timeCounter: GameTimeController(
-                gameInteractor: gameInteractor,
-                sceneEventStream: scenEventStream
-            ),
-            gameScoreController: gameScoreController,
-            game: game,
-            gameItemModels: gameItems
+        let boardController = SudokuGameBoardController(itemRepository: repositoryProvider.gameItemRepository(), gameItemModels: gameItems)
+        let timeCounter = GameTimeController(gameInteractor: gameInteractor, sceneEventStream: scenEventStream)
+        let actionsController = SudokuGameActionsController(
+            scoreController: gameScoreController,
+            boardController: boardController
         )
+        let statsController = SudokuGameStatsDataProvider(gameInteractor: gameInteractor, timeCounter: timeCounter)
         
         let router = GameNavigationRouter()
         let sizeProvider = SudokuBoardScreenBasedSizeProvider(
@@ -67,20 +62,20 @@ class MainMenuNavigationRouter: MainMenuRouter {
         
         let gameViewController = GameViewController(
             gameStatsViewController: GameStatsViewController
-                .make(with: gameController, router: router),
+                .make(with: statsController, router: router),
             boardViewController: SudokuBoardViewController(
                 collectionViewLayout: SudokuLayout(sizeProvider: sizeProvider),
                 backgroundViewBuilder: SudokuCollectionViewBackgrounViewBuilder(
                     sizeProvider: sizeProvider
                 ),
-                boardContentDataSource: gameController,
-                interactionHandler: gameController
+                boardContentDataSource: boardController,
+                interactionHandler: boardController
             ),
             boardSizeWidth: sizeProvider.realContentWidth,
             gameActionsViewController: GameActionsViewController
-                .make(with: gameController),
+                .make(with: actionsController),
             numpadViewController: NumpadViewController(
-                interectionHandler: gameController
+                interectionHandler: actionsController
             ),
             scoreProvider: gameScoreController
         )
