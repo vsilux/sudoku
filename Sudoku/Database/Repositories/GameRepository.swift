@@ -8,7 +8,7 @@
 import Foundation
 import GRDB
 
-protocol GameRepository {
+public protocol GameRepository {
     func save(game: inout SudokuGameModel) throws
     func fetchGame(for id: Int64) throws -> SudokuGameModel?
     func fetchUnfinishedGames() throws -> [SudokuGameModel]

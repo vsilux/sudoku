@@ -8,14 +8,14 @@
 import Foundation
 import GRDB
 
-struct SudokuGameModel: Codable {
-    var id: Int64?
-    let difficulty: Difficulty
-    var time: Int
-    var mistakes: Int
-    var hints: Int
-    var isSolved: Bool
-    var score: Int
+public struct SudokuGameModel: Codable {
+    public var id: Int64?
+    public let difficulty: Difficulty
+    public var time: Int
+    public var mistakes: Int
+    public var hints: Int
+    public var isSolved: Bool
+    public var score: Int
     
     init(difficulty: Difficulty, time: Int = 0, mistakes: Int = 0, hints: Int = 0, isSolved: Bool = false, score: Int = 0) {
         self.difficulty = difficulty
@@ -28,7 +28,7 @@ struct SudokuGameModel: Codable {
 }
 
 extension SudokuGameModel: Equatable {
-    static func == (lhs: SudokuGameModel, rhs: SudokuGameModel) -> Bool {
+    public static func == (lhs: SudokuGameModel, rhs: SudokuGameModel) -> Bool {
         lhs.id == rhs.id &&
         lhs.difficulty == rhs.difficulty
     }
@@ -40,13 +40,13 @@ extension SudokuGameModel: FetchableRecord, MutablePersistableRecord {
         request(for: SudokuGameModel.items)
     }
     
-    mutating func didInsert(_ inserted: InsertionSuccess) {
+    public mutating func didInsert(_ inserted: InsertionSuccess) {
         self.id = inserted.rowID
     }
 }
 
 extension SudokuGameModel {
-    enum Difficulty: Int, CaseIterable, Codable {
+    public enum Difficulty: Int, CaseIterable, Codable {
         case easy = 30
         case medium = 40
         case hard = 50
